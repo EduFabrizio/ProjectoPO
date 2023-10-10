@@ -15,7 +15,15 @@ public class Spreadsheet implements Serializable {
   private static final long serialVersionUID = 202308312359L;
   
   // FIXME define attributes
+  private int _rows;
+  private int _columns;
+  private boolean _changed;
   // FIXME define contructor(s)
+    public Spreadsheet(int rows, int columns){
+      _rows = rows;
+      _columns = columns;
+      _changed = false;
+  }
   // FIXME define methods
   
   /**
