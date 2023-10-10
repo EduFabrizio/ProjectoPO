@@ -21,6 +21,6 @@ public class LiteralString extends Literal
 
 	public Int asInt() throws AsIntException
 	{
-		throw new AsIntException();
+		throw new AsIntException(_value);
 	}
 }
