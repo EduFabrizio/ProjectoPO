@@ -16,6 +16,11 @@ public class LiteralString extends Literal
 
 	public String asString()
 	{
-		
+		return '\'' + _value;
+	}
+
+	public Int asInt() throws AsIntException
+	{
+		throw new AsIntException();
 	}
 }

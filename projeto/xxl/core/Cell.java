@@ -2,13 +2,8 @@ package xxl.core;
 
 import java.io.IOException;
 
-import javax.swing.text.AbstractDocument.Content;
+import xxl.core.Content;
 
-import java.io.FileNotFoundException;
-
-import xxl.core.exception.ImportFileException;
-import xxl.core.exception.MissingFileAssociationException;
-import xxl.core.exception.UnavailableFileException;
 import xxl.core.exception.UnrecognizedEntryException;
 
 public class Cell{

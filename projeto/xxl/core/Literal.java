@@ -4,5 +4,6 @@ import xxl.core.Content;
 
 public abstract class Literal extends Content
 {
-	Literal value() {}
+	Literal value()
+	{}
 }

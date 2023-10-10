@@ -1,0 +1,28 @@
+package xxl.core;
+
+import xxl.core.Literal;
+
+public class LiteralInt extends Literal
+{
+	private int _value;
+
+	public LiteralInt(int value)
+	{
+		_value = value;
+	}
+
+	public String toString()
+	{
+		return Integer.toString(_value);
+	}
+
+	public String asString() throws AsStringException
+	{
+		throw new AsStringException();
+	}
+
+	public int asInt()
+	{
+		return _value;
+	}
+}

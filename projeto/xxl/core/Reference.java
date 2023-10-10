@@ -12,7 +12,10 @@ public class Reference extends Content
 		_column = column;
 	}
 
-	public String toString() {}
+	public String toString()
+	{
+		return "=" + Integer.toString(_row) + ";" + Integer.toString(_column);
+	}
 
 	Literal value() {}
 }
