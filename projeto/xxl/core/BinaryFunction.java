@@ -1,17 +1,20 @@
 package xxl.core;
 
-import xxl.core.Function;
-
 public abstract class BinaryFunction extends Function
 {
-	private Content _arg1;
-	private Content _arg2;
+	protected Content _arg1;
+	protected Content _arg2;
 
-	public BinaryFunction(Content arg1, Content arg2)
+	public BinaryFunction(Content arg1, Content arg2, String name)
 	{
+		super(name);
 		_arg1 = arg1;
 		_arg2 = arg2;
+		
 	}
 
-	public String toString() {}
+	public String toString()
+	{
+		return "=" + _name + "(" + this.value().toString() + ")";
+	}
 }

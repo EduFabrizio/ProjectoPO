@@ -1,18 +1,31 @@
 package xxl.core;
 
-import xxl.core.Content;
 import xxl.core.exception.AsIntException;
 import xxl.core.exception.AsStringException;
 
 public abstract class Function extends Content
 {
-	private String _name;
+	protected String _name;
+
+	public Function(String name)
+	{
+		_name = name;
+	}
 
 	protected abstract Literal compute();
 
-	public String asString() throws AsStringException {}
+	public String asString() throws AsStringException
+	{
+		return this.value().asString();
+	}
 
-	public int asInt() throws AsIntException {}
+	public int asInt() throws AsIntException
+	{
+		return this.value().asInt();
+	}
 
-	public Literal value() {}
+	public Literal value()
+	{
+		return this.compute();
+	}
 }

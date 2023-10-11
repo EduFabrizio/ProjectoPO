@@ -6,10 +6,11 @@ public class Reference extends Content
 	private int _column;
 	private Spreadsheet _sheet;
 
-	public Reference(int row, int column)
+	public Reference(int row, int column, Spreadsheet sheet)
 	{
 		_row = row;
 		_column = column;
+		_sheet = sheet;
 	}
 
 	public String toString()
