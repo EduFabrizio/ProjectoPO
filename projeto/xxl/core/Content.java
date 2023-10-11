@@ -1,10 +1,7 @@
 package xxl.core;
 
-import java.io.IOException;
-
 import xxl.core.exception.AsIntException;
 import xxl.core.exception.AsStringException;
-import xxl.core.exception.UnrecognizedEntryException;
 
 public abstract class Content
 {
@@ -12,7 +9,13 @@ public abstract class Content
 
 	abstract Literal value();
 
-	public String asString() throws AsStringException{}
+	public String asString() throws AsStringException
+	{
+		return value().asString();
+	}
 
-	public int asInt() throws AsIntException{}
+	public int asInt() throws AsIntException
+	{
+		return value().asInt();
+	}
 }

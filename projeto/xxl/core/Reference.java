@@ -18,6 +18,9 @@ public class Reference extends Content
 		return "=" + Integer.toString(_row) + ";" + Integer.toString(_column);
 	}
 
-	Literal value() {}
+	Literal value()
+	{
+		return _sheet._matrizCells[_row][_column]._content.value();i
+	}
 }
 
