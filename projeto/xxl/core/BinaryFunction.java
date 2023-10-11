@@ -15,6 +15,6 @@ public abstract class BinaryFunction extends Function
 
 	public String toString()
 	{
-		return "=" + _name + "(" + this.value().toString() + ")";
+		return "=" + _name + "(" + _arg1.toString() + "," + _arg2.toString() + ")";
 	}
 }
