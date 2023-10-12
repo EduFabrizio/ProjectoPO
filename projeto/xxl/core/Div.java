@@ -1,7 +1,7 @@
 package xxl.core;
 
 import xxl.core.exception.AsIntException;
-import xxl.core.exception.DivisionByZeroException;
+import xxl.core.exception.DivideByZeroException;
 
 public class Div extends BinaryFunction
 {
@@ -11,14 +11,15 @@ public class Div extends BinaryFunction
 		super(arg1, arg2, "DIV");
 	}
 
-	protected Literal compute() throws DivisionByZeroException
+	protected Literal compute() throws DivideByZeroException
 	{
 		int i;
 
-		if (_arg2.value().asInt() == 0)
-			throw new DivisionByZeroException();
+		
 		try
 		{
+			if (_arg2.value().asInt() == 0)
+				throw new DivideByZeroException();
 			i = _arg1.value().asInt() / _arg2.value().asInt();
 		}
 		catch(AsIntException ex)
