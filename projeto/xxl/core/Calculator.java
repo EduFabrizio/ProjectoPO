@@ -1,9 +1,15 @@
 package xxl.core;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import xxl.core.exception.ImportFileException;
+import xxl.core.exception.IncorrectBinaryFunctionException;
+import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.MissingFileAssociationException;
 import xxl.core.exception.UnavailableFileException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -16,9 +22,18 @@ import xxl.core.exception.UnrecognizedEntryException;
 public class Calculator {
   /** The current spreadsheet. */
   private Spreadsheet _spreadsheet;
+  private String _filename;
+  private User _user;
   
   // FIXME add more fields and methods if needed
   
+	public Calculator()
+	{
+		_spreadsheet = null;
+		_filename = null;
+		_user = null;
+	}
+
   /**
    * Return the current spreadsheet.
    *
@@ -36,7 +51,10 @@ public class Calculator {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+   		_spreadsheet.setChanged(false);
+		 ObjectOutputStream obOut = new ObjectOutputStream(new FileOutputStream(_filename));
+		obOut.writeObject(_spreadsheet);
+		obOut.close();
   }
   
   /**
@@ -49,7 +67,8 @@ public class Calculator {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+	_filename = filename;
+	save();
   }
   
   /**
@@ -58,8 +77,10 @@ public class Calculator {
    * @throws UnavailableFileException if the specified file does not exist or there is
    *         an error while processing this file.
    */
-  public void load(String filename) throws UnavailableFileException {
-    // FIXME implement serialization method
+  public void load(String filename) throws UnavailableFileException, FileNotFoundException, IOException, ClassNotFoundException {
+	ObjectInputStream obIn = new ObjectInputStream(new FileInputStream(filename));
+	_spreadsheet = (Spreadsheet)obIn.readObject();
+	obIn.close();
   }
   
   /**
@@ -70,12 +91,25 @@ public class Calculator {
    */
   public void importFile(String filename) throws ImportFileException {
     try {
-      // FIXME open import file and feed entries to new spreadsheet (in a cycle)
-      //       each entry is inserted using insertContent of Spreadsheet. Set new
-      // spreadsheet as the active one.
-      // ....
-    } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+		Parser parser = new Parser(_spreadsheet);
+		parser.parseFile(filename);
+    } catch (IOException | UnrecognizedEntryException | IncorrectBinaryFunctionException | IncorrectIntervalFunctionException e) {
       throw new ImportFileException(filename, e);
     }
-  } 
+  }
+
+  public void createNewSpreadsheet(int rows, int columns) throws FileNotFoundException, MissingFileAssociationException, IOException
+  {
+	if (_spreadsheet.getChanged())
+		save();
+	_spreadsheet = new Spreadsheet(rows, columns);
+  }
+
+  public void createUser(String name)
+  {
+	if (_user == null)
+	{
+		_user = new User(name);
+	}
+  }
 }

@@ -32,4 +32,8 @@ public class Cell{
 		return _column;
 	}
 
+	public Content getContent()
+	{
+		return _content;
+	}
 }

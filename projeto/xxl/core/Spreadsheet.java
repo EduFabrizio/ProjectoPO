@@ -43,6 +43,7 @@ public class Spreadsheet implements Serializable {
   }
   public void insert(int linha, int coluna , Content conteudo){
     _matrizCells[linha][coluna].setContent(conteudo);
+	_changed = true;
   }
 
 public Cell[][] getMatrizCells(){
@@ -67,6 +68,16 @@ public Cell[][] getMatrizCells(){
     // check if coordinates are valid
     // if yes
     return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
+  }
+
+  public boolean getChanged()
+  {
+	return _changed;
+  }
+
+  public void setChanged(boolean valor)
+  {
+	_changed = valor;
   }
   /**
    * Insert specified content in specified address.

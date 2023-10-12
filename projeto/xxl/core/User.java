@@ -11,4 +11,9 @@ public class User{
         void add(Spreadsheet sheet){
 
         }
+
+		public String getName()
+		{
+			return _name;
+		}
 }
