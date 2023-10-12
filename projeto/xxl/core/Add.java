@@ -1,6 +1,7 @@
 package xxl.core;
 
 import xxl.core.exception.AsIntException;
+import xxl.core.exception.DivideByZeroException;
 
 public class Add extends BinaryFunction
 {
@@ -10,7 +11,7 @@ public class Add extends BinaryFunction
 		super(arg1, arg2, "ADD");
 	}
 
-	protected Literal compute()
+	protected Literal compute() throws DivideByZeroException
 	{
 		int i;
 

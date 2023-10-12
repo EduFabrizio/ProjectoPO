@@ -1,7 +1,5 @@
 package xxl.core;
 
-import org.w3c.dom.ranges.Range;
-
 public abstract class IntervalFunction extends Function
 {
 

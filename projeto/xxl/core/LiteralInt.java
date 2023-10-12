@@ -1,6 +1,6 @@
 package xxl.core;
 
-import xxl.core.Literal;
+import xxl.core.exception.AsStringException;
 
 public class LiteralInt extends Literal
 {

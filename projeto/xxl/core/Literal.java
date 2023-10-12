@@ -1,5 +1,8 @@
 package xxl.core;
 
+import xxl.core.exception.AsStringException;
+import xxl.core.exception.AsIntException;
+
 public abstract class Literal extends Content
 {
 	Literal value()

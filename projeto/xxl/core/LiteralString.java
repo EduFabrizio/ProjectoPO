@@ -1,5 +1,7 @@
 package xxl.core;
 
+import xxl.core.exception.AsIntException;
+
 public class LiteralString extends Literal
 {
 	public String _value;
@@ -19,7 +21,7 @@ public class LiteralString extends Literal
 		return '\'' + _value;
 	}
 
-	public Int asInt() throws AsIntException
+	public int asInt() throws AsIntException
 	{
 		throw new AsIntException(_value);
 	}

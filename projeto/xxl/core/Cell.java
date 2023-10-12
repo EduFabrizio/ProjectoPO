@@ -1,11 +1,6 @@
 package xxl.core;
 
-import java.io.IOException;
-
-import xxl.core.Content;
-import xxl.core.exception.AsIntException;
-import xxl.core.exception.AsStringException;
-import xxl.core.exception.UnrecognizedEntryException;
+import xxl.core.exception.DivideByZeroException;
 
 public class Cell{
     private int _row;
@@ -18,21 +13,23 @@ public class Cell{
         _content = null;
     }
     public String toString(){
-        String str;
-        try{
-            str = _content.asString();
-        }
-        catch(AsStringException ex)
-        {
-            return null;
-        }
-        return str;
+        return _content.toString();
     }
     void setContent(Content c){
         _content = c;
     }
-    Literal value(){
+    Literal value() throws DivideByZeroException{
         return _content.value();
     }
+
+	public int getRow()
+	{
+		return _row;
+	}
+
+	public int getColumn()
+	{
+		return _column;
+	}
 
 }

@@ -15,17 +15,17 @@ public abstract class Function extends Content
 
 	protected abstract Literal compute() throws DivideByZeroException;
 
-	public String asString() throws AsStringException
+	public String asString() throws AsStringException, DivideByZeroException
 	{
 		return this.value().asString();
 	}
 
-	public int asInt() throws AsIntException
+	public int asInt() throws AsIntException, DivideByZeroException
 	{
 		return this.value().asInt();
 	}
 
-	public Literal value()
+	public Literal value() throws DivideByZeroException
 	{
 		return this.compute();
 	}
