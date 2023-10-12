@@ -1,6 +1,8 @@
 package xxl.core;
 
 import xxl.core.Spreadsheet;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Range{
@@ -17,7 +19,19 @@ public class Range{
         endColumn = lastColumn;
     }
     List<Cell> getCells(){
-        return _spreadsheet.getMatriz();
+        int i =0;
+        Cell[][] matCells = _spreadsheet.getMatrizCells();
+        ArrayList<Cell> lstCells = new ArrayList<Cell>();
+        if(beginColumn == endColumn){
+            for(Cell cell: lstCells){
+                cell = matCells[i++][beginColumn];
+        }}
+        if(beginRow==endRow){
+            for(Cell cell: lstCells){
+                cell = matCells[beginRow][i++];
+            }
+        }
+        return lstCells;
 
     }
     public String toString(){

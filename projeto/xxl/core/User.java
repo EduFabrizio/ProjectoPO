@@ -6,13 +6,9 @@ public class User{
         public User(String name){
             _name = name;
         }
-        public boolean equals(Object obj){
 
-        }
-        public int hashCode(){
 
-        }
         void add(Spreadsheet sheet){
-            
+
         }
 }

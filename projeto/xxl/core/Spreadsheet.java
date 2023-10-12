@@ -32,22 +32,27 @@ public class Spreadsheet implements Serializable {
   public List<Cell> getCutBuffer(){
     return _cutBuffer.getCells();
   }
-  public void copy(){
-
+  public void copy(String range) throws UnrecognizedEntryException{
+  
   }
-  public void clear(){
+  public void clear(String range){
 
   }
   public void addUser(User u){
 
   }
   public void insert(int linha, int coluna , Content conteudo){
-
+    _matrizCells[linha][coluna].setContent(conteudo);
   }
+
+public Cell[][] getMatrizCells(){
+  return _matrizCells;
+}
+
+
   Range buildRange(String range) throws UnrecognizedEntryException {
     String[] rangeCoordinates;
     int firstRow, firstColumn, lastRow, lastColumn;
-    try{
     if (range.indexOf(':') != -1) {
       rangeCoordinates = range.split("[:;]");
       firstRow = Integer.parseInt(rangeCoordinates[0]);
@@ -58,10 +63,6 @@ public class Spreadsheet implements Serializable {
       rangeCoordinates = range.split(";");
       firstRow = lastRow = Integer.parseInt(rangeCoordinates[0]);
       firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
-    }}
-    catch(UnrecognizedEntryException ex){
-      System.out.println("O argumento é invalido");
-
     }
     // check if coordinates are valid
     // if yes
@@ -75,7 +76,4 @@ public class Spreadsheet implements Serializable {
    * @param contentSpecification the specification in a string format of the content to put
    *        in the specified cell.
    */
-  public void insertContent(int row, int column, String contentSpecification) throws UnrecognizedEntryException /* FIXME maybe add exceptions */ {
-    //FIXME implement method
-  }
 }
