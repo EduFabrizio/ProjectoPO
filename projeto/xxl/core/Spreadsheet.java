@@ -4,6 +4,8 @@ package xxl.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
+
 
 import xxl.core.exception.UnrecognizedEntryException;
 
@@ -18,6 +20,8 @@ public class Spreadsheet implements Serializable {
   private int _rows;
   private int _columns;
   private boolean _changed;
+  private CutBuffer _cutBuffer;
+  private Cell[][] _matrizCells;
   // FIXME define contructor(s)
     public Spreadsheet(int rows, int columns){
       _rows = rows;
@@ -25,7 +29,44 @@ public class Spreadsheet implements Serializable {
       _changed = false;
   }
   // FIXME define methods
-  
+  public List<Cell> getCutBuffer(){
+    return _cutBuffer.getCells();
+  }
+  public void copy(){
+
+  }
+  public void clear(){
+
+  }
+  public void addUser(User u){
+
+  }
+  public void insert(int linha, int coluna , Content conteudo){
+
+  }
+  Range buildRange(String range) throws UnrecognizedEntryException {
+    String[] rangeCoordinates;
+    int firstRow, firstColumn, lastRow, lastColumn;
+    try{
+    if (range.indexOf(':') != -1) {
+      rangeCoordinates = range.split("[:;]");
+      firstRow = Integer.parseInt(rangeCoordinates[0]);
+      firstColumn = Integer.parseInt(rangeCoordinates[1]);
+      lastRow = Integer.parseInt(rangeCoordinates[2]);
+      lastColumn = Integer.parseInt(rangeCoordinates[3]);
+    } else {
+      rangeCoordinates = range.split(";");
+      firstRow = lastRow = Integer.parseInt(rangeCoordinates[0]);
+      firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
+    }}
+    catch(UnrecognizedEntryException ex){
+      System.out.println("O argumento é invalido");
+
+    }
+    // check if coordinates are valid
+    // if yes
+    return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
+  }
   /**
    * Insert specified content in specified address.
    *

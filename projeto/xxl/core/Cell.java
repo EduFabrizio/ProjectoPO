@@ -3,7 +3,8 @@ package xxl.core;
 import java.io.IOException;
 
 import xxl.core.Content;
-
+import xxl.core.exception.AsIntException;
+import xxl.core.exception.AsStringException;
 import xxl.core.exception.UnrecognizedEntryException;
 
 public class Cell{
@@ -17,7 +18,15 @@ public class Cell{
         _content = null;
     }
     public String toString(){
-        return _content.asString();
+        String str;
+        try{
+            str = _content.asString();
+        }
+        catch(AsStringException ex)
+        {
+            return null;
+        }
+        return str;
     }
     void setContent(Content c){
         _content = c;
