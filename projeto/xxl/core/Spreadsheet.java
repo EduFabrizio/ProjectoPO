@@ -6,7 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-
+import xxl.core.exception.IncorrectBinaryFunctionException;
+import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
 
 /**
@@ -44,6 +45,12 @@ public class Spreadsheet implements Serializable {
   public void insert(int linha, int coluna , Content conteudo){
     _matrizCells[linha][coluna].setContent(conteudo);
 	_changed = true;
+  }
+  public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException{
+    Parser parser = new Parser(this);
+    Content newConteudo = parser.parseContent(conteudo);
+    insert(linha, coluna, newConteudo);
+
   }
 
 public Cell[][] getMatrizCells(){
