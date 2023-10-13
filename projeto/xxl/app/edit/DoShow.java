@@ -9,6 +9,7 @@ import xxl.core.exception.UnrecognizedEntryException;
 import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.Cell;
 import java.util.List;
+import xxl.core.Range;
 
 // FIXME import classes
 
@@ -24,31 +25,37 @@ class DoShow extends Command<Spreadsheet> {
   
   @Override
   protected final void execute() throws CommandException {
+	int r = 0, l = 0;
 	List<Cell> cells = null;
+	Range range;
+	String _range = stringField("show_gama");
 	try
-	{
-		cells = _receiver.buildRange(stringField("show_gama")).getCells();
+	{	
+		range = _receiver.buildRange(_range);		
+		cells = range.getCells();
+		r = range.getBeginRow();
+		l = range.getBeginColumn();
+		for (Cell c : cells)
+		{
+			if (c != null)
+			{
+				_display.addLine(c.toString());
+			}
+			else
+			{
+				_display.addLine(Integer.toString(r) + ";" + Integer.toString(l) + "|");
+			}	
+			if (r == range.getEndRow())
+				l++;
+			if (l == range.getEndColumn())
+				r++;
+		}
 	}
+
     catch (UnrecognizedEntryException ex)
 	{
 		throw new InvalidCellRangeException(stringField("show_gama"));
 	}
-	for (Cell c : cells)
-	{
-		if (c.getContent() != null)
-		{
-			try
-			{
-				_display.addLine(Integer.toString(c.getRow()) + ";" + Integer.toString(c.getColumn()) + "|" + c.getContent().showCont());
-			}
-			catch(Exception ex)
-			{}
-		}
-		else
-		{
-			_display.addLine(Integer.toString(c.getRow()) + ";" + Integer.toString(c.getColumn()) + "|");
-		}	
-		_display.display();	
-	}
+	
   }
 }

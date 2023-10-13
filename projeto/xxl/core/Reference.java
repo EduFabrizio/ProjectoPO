@@ -23,7 +23,7 @@ public class Reference extends Content
 	Literal value() throws DivideByZeroException
 	{
 		Cell[][] cells = _sheet.getMatrizCells();
-		return cells[_row][_column].getContent().value();
+		return cells[_row - 1][_column - 1].getContent().value();
 	}
 
 	public String showCont() throws DivideByZeroException

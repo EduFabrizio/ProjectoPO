@@ -86,6 +86,16 @@ public Range buildRange(String range) throws UnrecognizedEntryException {
   {
 	_changed = valor;
   }
+
+  public int getRow()
+  {
+	return _rows;
+  }
+
+  public int getColumn()
+  {
+	return _columns;
+  }
   /**
    * Insert specified content in specified address.
    *

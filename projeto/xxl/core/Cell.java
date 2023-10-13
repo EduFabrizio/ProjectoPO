@@ -13,7 +13,14 @@ public class Cell{
         _content = content;
     }
     public String toString(){
-        return _content.toString();
+		try{
+			return "" + _row + ";" + _column + "|" + _content.showCont();
+		}
+		catch(DivideByZeroException ex)
+		{
+			return "" + _row + ";" + _column + "|";
+		}
+        
     }
     void setContent(Content c){
         _content = c;

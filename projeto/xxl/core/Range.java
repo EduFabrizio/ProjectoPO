@@ -13,28 +13,58 @@ public class Range{
     private Spreadsheet _spreadsheet;
 
     public Range(int firstRow, int firstColumn, int lastRow, int lastColumn, Spreadsheet spreadsheet){
-        beginRow = firstRow;
-        beginColumn = firstColumn;
-        endRow = lastRow;
-        endColumn = lastColumn;
+        if (beginRow <= spreadsheet.getRow())
+			beginRow = firstRow;
+		else
+			beginRow = spreadsheet.getRow();
+		if (beginColumn <= spreadsheet.getColumn())
+			beginColumn = firstColumn;
+		else
+			beginColumn = spreadsheet.getColumn();
+		if (endColumn <= spreadsheet.getColumn())
+			endColumn = lastColumn;
+		else
+			endColumn = spreadsheet.getColumn();
+		if (endRow <= spreadsheet.getRow())
+			endRow = lastRow;
+		else
+			endRow = spreadsheet.getRow();
+		_spreadsheet = spreadsheet;
     }
     public List<Cell> getCells(){
         int i =0;
+		int j;
         Cell[][] matCells = _spreadsheet.getMatrizCells();
-        ArrayList<Cell> lstCells = new ArrayList<Cell>();
-        if(beginColumn == endColumn){
-            for(Cell cell: lstCells){
-                cell = matCells[i++][beginColumn];
-        }}
-        if(beginRow==endRow){
-            for(Cell cell: lstCells){
-                cell = matCells[beginRow][i++];
-            }
-        }
+        List<Cell> lstCells = new ArrayList<Cell>();
+		for (i = beginRow;  i <= endRow; i++){
+			for (j = beginColumn; j <= endColumn; j++ ){
+				lstCells.add(matCells[i-1][j-1]);
+			}
+		}
         return lstCells;
+	}
 
-    }
     public String toString(){
-        return "" + beginRow + ";" + beginColumn +":" +endRow +";"+endColumn; 
+        return "" + beginRow + ";" + beginColumn + ":" + endRow + ";" + endColumn; 
     }
+
+	public int getBeginRow()
+	{
+		return beginRow;
+	}
+
+	public int getBeginColumn()
+	{
+		return beginColumn;
+	}
+
+	public int getEndRow()
+	{
+		return endRow;
+	}
+
+	public int getEndColumn()
+	{
+		return endColumn;
+	}
 }
