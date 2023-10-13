@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.exception.ImportFileException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
@@ -92,8 +93,9 @@ public class Calculator {
    *
    * @param filename name of the text input file
    * @throws ImportFileException
+   * @throws InvalidCellRangeException
    */
-  public void importFile(String filename) throws ImportFileException {
+  public void importFile(String filename) throws ImportFileException, InvalidCellRangeException {
     try {
 		Parser parser = new Parser();
 		_spreadsheet = parser.parseFile(filename);

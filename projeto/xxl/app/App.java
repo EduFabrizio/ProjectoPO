@@ -1,6 +1,7 @@
 package xxl.app;
 
 import pt.tecnico.uilib.Dialog;
+import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.exception.ImportFileException;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.IOException;
  */
 public class App {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InvalidCellRangeException {
     try (var ui = Dialog.UI) {
       var receiver = new xxl.core.Calculator();
       String datafile = System.getProperty("import");

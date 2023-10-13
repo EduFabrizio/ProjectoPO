@@ -6,6 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
+import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -47,7 +48,7 @@ public class Spreadsheet implements Serializable {
     _matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
 	_changed = true;
   }
-  public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException{
+  public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
     Parser parser = new Parser(this);
     Content newConteudo = parser.parseContent(conteudo);
     insert(linha, coluna, newConteudo);
@@ -58,7 +59,7 @@ public Cell[][] getMatrizCells(){
 }
 
 
-public Range buildRange(String range) throws UnrecognizedEntryException {
+public Range buildRange(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
     String[] rangeCoordinates;
     int firstRow, firstColumn, lastRow, lastColumn;
     if (range.indexOf(':') != -1) {
@@ -67,14 +68,18 @@ public Range buildRange(String range) throws UnrecognizedEntryException {
       firstColumn = Integer.parseInt(rangeCoordinates[1]);
       lastRow = Integer.parseInt(rangeCoordinates[2]);
       lastColumn = Integer.parseInt(rangeCoordinates[3]);
+
+      
     } else {
       rangeCoordinates = range.split(";");
       firstRow = lastRow = Integer.parseInt(rangeCoordinates[0]);
       firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
     }
-    // check if coordinates are valid
-    // if yes
-    return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
+    
+    if (firstRow <= _matrizCells.length && lastRow <= _matrizCells.length && firstColumn <= _matrizCells[0].length && lastColumn <= _matrizCells[0].length)
+        return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
+    else
+      throw new InvalidCellRangeException(range);
   }
 
   public boolean getChanged()
