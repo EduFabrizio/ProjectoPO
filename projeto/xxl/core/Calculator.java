@@ -51,12 +51,16 @@ public class Calculator {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-   		_spreadsheet.setChanged(false);
-		 ObjectOutputStream obOut = new ObjectOutputStream(new FileOutputStream(_filename));
-		obOut.writeObject(_spreadsheet);
-		obOut.close();
-  }
-  
+		if (_filename == null)
+			throw new MissingFileAssociationException();
+		if (_spreadsheet.getChanged() == true)
+		{
+			_spreadsheet.setChanged(false);
+			ObjectOutputStream obOut = new ObjectOutputStream(new FileOutputStream(_filename));
+			obOut.writeObject(_spreadsheet);
+			obOut.close();
+		}
+	}
   /**
    * Saves the serialized application's state into the specified file. The current network is
    * associated to this file.
@@ -116,5 +120,10 @@ public class Calculator {
   public String getFilename()
   {
 	return _filename;
+  }
+
+  public void setFilename(String filename)
+  {
+	_filename = filename;
   }
 }
