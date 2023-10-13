@@ -1,8 +1,10 @@
 package xxl.core;
 
 import xxl.core.exception.DivideByZeroException;
+import java.io.Serializable;
 
-public class Cell{
+public class Cell implements Serializable{
+	private static final long serialVersionUID = 80085797949L;
     private int _row;
     private int _column;
     private Content _content;
