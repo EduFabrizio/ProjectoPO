@@ -112,4 +112,9 @@ public class Calculator {
 		_user = new User(name);
 	}
   }
+
+  public String getFilename()
+  {
+	return _filename;
+  }
 }
