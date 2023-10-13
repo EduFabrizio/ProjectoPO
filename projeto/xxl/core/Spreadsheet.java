@@ -50,7 +50,6 @@ public class Spreadsheet implements Serializable {
     Parser parser = new Parser(this);
     Content newConteudo = parser.parseContent(conteudo);
     insert(linha, coluna, newConteudo);
-
   }
 
 public Cell[][] getMatrizCells(){
@@ -58,7 +57,7 @@ public Cell[][] getMatrizCells(){
 }
 
 
-  Range buildRange(String range) throws UnrecognizedEntryException {
+public Range buildRange(String range) throws UnrecognizedEntryException {
     String[] rangeCoordinates;
     int firstRow, firstColumn, lastRow, lastColumn;
     if (range.indexOf(':') != -1) {

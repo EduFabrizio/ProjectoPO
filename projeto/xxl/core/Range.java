@@ -18,7 +18,7 @@ public class Range{
         endRow = lastRow;
         endColumn = lastColumn;
     }
-    List<Cell> getCells(){
+    public List<Cell> getCells(){
         int i =0;
         Cell[][] matCells = _spreadsheet.getMatrizCells();
         ArrayList<Cell> lstCells = new ArrayList<Cell>();

@@ -19,4 +19,6 @@ public abstract class Content
 	{
 		return value().asInt();
 	}
+
+	public abstract String showCont() throws DivideByZeroException;
 }

@@ -25,5 +25,10 @@ public class Reference extends Content
 		Cell[][] cells = _sheet.getMatrizCells();
 		return cells[_row][_column].getContent().value();
 	}
+
+	public String showCont() throws DivideByZeroException
+	{
+		return value().toString() + toString();
+	}
 }
 
