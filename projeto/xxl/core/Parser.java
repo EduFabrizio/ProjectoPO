@@ -46,7 +46,7 @@ class Parser {
       else if (dimension[0].equals("colunas"))
         columns = Integer.parseInt(dimension[1]);
       else
-        throw new UnrecognizedEntryException(dimension[0]);
+        throw new UnrecognizedEntryException(dimension[0] + "=" + dimension[1]);
     }
 
     if (rows <= 0 || columns <= 0)

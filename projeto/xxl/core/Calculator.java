@@ -95,8 +95,8 @@ public class Calculator {
    */
   public void importFile(String filename) throws ImportFileException {
     try {
-		Parser parser = new Parser(_spreadsheet);
-		parser.parseFile(filename);
+		Parser parser = new Parser();
+		_spreadsheet = parser.parseFile(filename);
     } catch (IOException | UnrecognizedEntryException | IncorrectBinaryFunctionException | IncorrectIntervalFunctionException e) {
       throw new ImportFileException(filename, e);
     }

@@ -7,10 +7,10 @@ public class Cell{
     private int _column;
     private Content _content;
 
-    public Cell(int row, int column){
+    public Cell(int row, int column, Content content){
         _row = row;
         _column = column;
-        _content = null;
+        _content = content;
     }
     public String toString(){
         return _content.toString();

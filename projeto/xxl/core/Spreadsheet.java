@@ -28,6 +28,7 @@ public class Spreadsheet implements Serializable {
       _rows = rows;
       _columns = columns;
       _changed = false;
+	  _matrizCells = new Cell[_rows][_columns];
   }
   // FIXME define methods
   public List<Cell> getCutBuffer(){
@@ -43,7 +44,7 @@ public class Spreadsheet implements Serializable {
 
   }
   public void insert(int linha, int coluna , Content conteudo){
-    _matrizCells[linha][coluna].setContent(conteudo);
+    _matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
 	_changed = true;
   }
   public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException{
