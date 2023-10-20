@@ -28,7 +28,11 @@ public class Reference extends Content
 
 	public String showCont() throws DivideByZeroException
 	{
-		return value().toString() + toString();
+		try {
+			return value().toString() + toString();
+		} catch(NullPointerException npe) {
+			return "#VALUE" + toString();
+		}
 	}
 }
 
