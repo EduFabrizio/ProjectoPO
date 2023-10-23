@@ -51,11 +51,9 @@ class DoShow extends Command<Spreadsheet> {
 				r++;
 		}
 	}
-
     catch (UnrecognizedEntryException ex)
 	{
 		throw new InvalidCellRangeException(stringField("show_gama"));
-	}
-	
+	}	
   }
 }

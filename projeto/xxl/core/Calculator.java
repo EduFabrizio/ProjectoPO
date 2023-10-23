@@ -104,13 +104,8 @@ public class Calculator {
     }
   }
 
-  public void createNewSpreadsheet(int rows, int columns) throws FileNotFoundException, MissingFileAssociationException, IOException
+  public void createNewSpreadsheet(int rows, int columns)
   {
-	if (_spreadsheet != null)
-	{
-		if (_spreadsheet.getChanged())
-			save();
-	}
 	_spreadsheet = new Spreadsheet(rows, columns);
   }
 
