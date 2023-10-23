@@ -15,11 +15,16 @@ public abstract class IntervalFunction extends Function
 
 	public String toString() 
 	{
-		return "=" + _name + "(" + _range.toString() + ")";
+		return "=" + _name + "(" + this.toFuncArg() + ")";
 	}
 
 	public String showCont() throws DivideByZeroException
 	{
 		return value().toString() + toString();
+	}
+
+	public String toFuncArg()
+	{
+		return _range.toString();
 	}
 }

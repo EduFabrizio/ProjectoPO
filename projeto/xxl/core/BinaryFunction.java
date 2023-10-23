@@ -17,7 +17,12 @@ public abstract class BinaryFunction extends Function
 
 	public String toString()
 	{
-		return "=" + " " + _name + "(" + _arg1.toString() + "," + _arg2.toString() + ")";
+		return "=" + _name + "(" + this.toFuncArg() + ")";
+	}
+
+	public String toFuncArg()
+	{
+		return _arg1.toFuncArg() + "," + _arg2.toFuncArg();
 	}
 
 	public String showCont() throws DivideByZeroException

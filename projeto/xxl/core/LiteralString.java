@@ -13,12 +13,12 @@ public class LiteralString extends Literal
 	
 	public String toString()
 	{
-		return '\'' + _value;
+		return _value;
 	}
 
 	public String asString()
 	{
-		return '\'' + _value;
+		return _value;
 	}
 
 	public int asInt() throws AsIntException

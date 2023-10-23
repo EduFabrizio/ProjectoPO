@@ -13,4 +13,9 @@ public abstract class Literal extends Content
 	{
 		return toString();
 	}
+
+	public String toFuncArg()
+	{
+		return toString();
+	}
 }

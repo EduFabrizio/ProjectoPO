@@ -20,6 +20,11 @@ public class Reference extends Content
 		return "=" + Integer.toString(_row) + ";" + Integer.toString(_column);
 	}
 
+	public String toFuncArg()
+	{
+		return Integer.toString(_row) + ";" + Integer.toString(_column);
+	}
+
 	Literal value() throws DivideByZeroException
 	{
 		Cell[][] cells = _sheet.getMatrizCells();

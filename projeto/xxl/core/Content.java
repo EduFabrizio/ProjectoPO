@@ -24,4 +24,6 @@ public abstract class Content implements Serializable
 	}
 
 	public abstract String showCont() throws DivideByZeroException;
+
+	public abstract String toFuncArg();
 }
