@@ -91,7 +91,6 @@ public class Spreadsheet implements Serializable {
 			row++;
 	}
   }
-  }
 
   public void addUser(User u){
 
