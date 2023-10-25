@@ -1,14 +1,15 @@
 package xxl.app.edit;
 
+import javax.smartcardio.CommandAPDU;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
-import xxl.core.Range;
-import xxl.core.Cell;
-import xxl.core.Content;
+import xxl.app.exception.InvalidCellRangeException;
 
-import java.util.List;
+import xxl.core.exception.DivideByZeroException;
+
 // FIXME import classes
 
 /**
@@ -25,25 +26,11 @@ class DoDelete extends Command<Spreadsheet> {
   protected final void execute() throws CommandException{
     
     try{
-    int r = 0, l = 0;
-    String novaStringRange = stringField("Gama_del");
-    Range novaRange = _receiver.buildRange(novaStringRange);
-    List<Cell> lstCells = novaRange.getCells();
-    r = novaRange.getBeginRow();
-    l = novaRange.getBeginColumn();
-    for(Cell c: lstCells){
-      if (c != null){
-        c.setContent(new NullContent());
-      }else {
-        c = new Cell(r, l, null);
-      }
-      if (r == novaRange.getEndRow())
-				l++;
-			if (l == novaRange.getEndColumn())
-				r++;
-    }
+      _receiver.clear("Gama_del");
+    
   }
   catch(UnrecognizedEntryException e){
+    
   }
   }
 }
