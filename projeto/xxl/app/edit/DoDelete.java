@@ -1,12 +1,11 @@
 package xxl.app.edit;
 
-import javax.smartcardio.CommandAPDU;
+
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
-import xxl.app.exception.InvalidCellRangeException;
 
 import xxl.core.exception.DivideByZeroException;
 
@@ -30,6 +29,9 @@ class DoDelete extends Command<Spreadsheet> {
     
   }
   catch(UnrecognizedEntryException e){
+
+  }
+  catch(DivideByZeroException e){
     
   }
   }
