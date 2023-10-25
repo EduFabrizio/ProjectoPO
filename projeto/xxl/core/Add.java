@@ -14,8 +14,7 @@ public class Add extends BinaryFunction
 	protected Literal compute() throws DivideByZeroException
 	{
 		int i;
-		if (_changed)
-		{}
+		
 		try
 		{
 		i = _arg1.value().asInt() + _arg2.value().asInt();

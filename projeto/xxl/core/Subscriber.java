@@ -1,6 +1,8 @@
 package xxl.core;
 
+import xxl.core.exception.DivideByZeroException;
+
 public interface Subscriber
 {
-	void update(Literal value);
+	void update() throws DivideByZeroException;
 }

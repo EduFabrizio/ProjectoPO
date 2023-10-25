@@ -15,8 +15,6 @@ public class Div extends BinaryFunction
 	{
 		int i;
 
-		if (_changed)
-		{}
 		try
 		{
 			if (_arg2.value().asInt() == 0)

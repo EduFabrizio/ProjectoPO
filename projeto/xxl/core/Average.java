@@ -16,8 +16,7 @@ public class Average extends IntervalFunction
 	{
 		List<Cell> cells = _range.getCells();
 		int acumulator = 0;
-		if (_changed)
-		{}
+
 		for (Cell c : cells)
 		{
 			try

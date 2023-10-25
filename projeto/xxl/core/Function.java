@@ -12,18 +12,17 @@ public abstract class Function extends Content implements Subscriber
 {
 	protected String _name;
 	protected List<Cell> _cellDepend;
-	protected boolean _changed;
+	protected Literal _value;
 
 	public Function(String name)
 	{
 		_name = name;
-		_changed = false;
 		_cellDepend = new ArrayList<Cell>();
 	}
 
-	public void update(Literal value)
+	public void update() throws DivideByZeroException
 	{
-		_changed = true;
+		_value = compute();
 	}
 
 	protected abstract Literal compute() throws DivideByZeroException;
@@ -40,6 +39,6 @@ public abstract class Function extends Content implements Subscriber
 
 	public Literal value() throws DivideByZeroException
 	{
-		return this.compute();
+		return _value;
 	}
 }

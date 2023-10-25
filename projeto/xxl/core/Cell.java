@@ -9,7 +9,7 @@ public class Cell implements Serializable{
     private int _row;
     private int _column;
     private Content _content;
-	private List<Function> _funcDepend;
+	private List<Subscriber> _funcDepend;
 
     public Cell(int row, int column, Content content){
         _row = row;
@@ -52,18 +52,18 @@ public class Cell implements Serializable{
 
 	public void notifyFuncs() throws DivideByZeroException
 	{
-		for (Function f : _funcDepend)
+		for (Subscriber s : _funcDepend)
 		{
-			f.update(this.value());
+			s.update();
 		}
 	}
 
-	public void addFunc(Function f)
+	public void addFunc(Subscriber s)
 	{
-		_funcDepend.add(f);
+		_funcDepend.add(s);
 	}
-	public void remFunc(Function f)
+	public void remFunc(Subscriber s)
 	{
-		_funcDepend.remove(f);
+		_funcDepend.remove(s);
 	}
 }

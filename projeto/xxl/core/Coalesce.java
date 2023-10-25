@@ -17,8 +17,6 @@ public class Coalesce extends IntervalFunction
 		List<Cell> cells = _range.getCells();
 		String coalesce = "";
 
-		if (_changed)
-		{}
 		for (Cell c : cells)
 		{
 			try

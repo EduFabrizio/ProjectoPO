@@ -14,8 +14,6 @@ public class Product extends IntervalFunction
 	{
 		int acumulator = 1;
 
-		if (_changed)
-		{}
 		for (Cell c : _range.getCells())
 		{
 			try

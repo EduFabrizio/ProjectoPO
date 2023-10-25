@@ -17,8 +17,6 @@ public class Concat extends IntervalFunction
 		List<Cell> cells = _range.getCells();
 		String concat = "";
 
-		if (_changed)
-		{}
 		for (Cell c : cells)
 		{
 			try
