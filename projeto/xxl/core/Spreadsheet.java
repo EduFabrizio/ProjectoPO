@@ -36,16 +36,61 @@ public class Spreadsheet implements Serializable {
 	  _matrizCells = new Cell[_rows][_columns];
   }
 
-  public List<Cell> getCutBuffer(){
-    return _cutBuffer.getCells();
+  public List<Cell> getCutBufferSpreadsheet(){
+    return _cutBuffer.getCutBuffer();
   }
 
-  public void copy(String range) throws UnrecognizedEntryException{
-  
+  public void copy(String range) throws UnrecognizedEntryException
+  {}
+
+  public void cut(String range)
+  {}
+
+  public void paste(String range)
+  {}
+
+  public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException
+  {
+	Range newRange = buildRange(range);
+	List<Cell> cells = newRange.getCells();
+	int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
+	for (Cell c : cells)
+  	{
+		if (c == null)
+		{
+			c = new Cell(row, col, new NullContent());
+		}
+		else
+		{
+			c.setContent(new NullContent());
+		}
+		if (row == newRange.getEndRow())
+			col++;
+		if (col == newRange.getEndColumn())
+			row++;
+	}
   }
 
-  public void clear(String range){
-
+  public void clear(Range range)
+  {
+	List<Cell> cells = range.getCells();
+	int row = range.getBeginRow(), col = range.getBeginColumn();
+	for (Cell c : cells)
+  	{
+		if (c == null)
+		{
+			c = new Cell(row, col, new NullContent());
+		}
+		else
+		{
+			c.setContent(new NullContent());
+		}
+		if (row == range.getEndRow())
+			col++;
+		if (col == range.getEndColumn())
+			row++;
+	}
+  }
   }
 
   public void addUser(User u){

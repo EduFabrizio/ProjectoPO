@@ -1,5 +1,6 @@
 package xxl.core;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,5 +65,17 @@ public class Range{
 	public int getEndColumn()
 	{
 		return endColumn;
+	}
+
+	public List<Cell> copyRange(Range range)
+	{
+		ArrayList<Cell> cells = (ArrayList<Cell>)range.getCells();
+		ArrayList<Cell> copia = new ArrayList<Cell>();
+
+		for (Cell c : cells)
+		{
+			copia.add(new Cell(c.getRow(), c.getColumn(), c.getContent()));
+		}
+		return copia;
 	}
 }
