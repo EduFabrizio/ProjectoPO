@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xxl.app.exception.InvalidCellRangeException;
+import xxl.core.exception.DivideByZeroException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -48,7 +49,7 @@ public class Spreadsheet implements Serializable {
 	_cutBuffer = new CutBuffer((ArrayList<Cell>)newRange.copyRange());
   }
 
-  public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException
+  public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
   {
 	copy(range);
 	clear(range);
@@ -57,7 +58,7 @@ public class Spreadsheet implements Serializable {
   public void paste(String range)
   {}
 
-  public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException
+  public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
   {
 	Range newRange = buildRange(range);
 	List<Cell> cells = newRange.getCells();
@@ -79,7 +80,7 @@ public class Spreadsheet implements Serializable {
 	}
   }
 
-  public void clear(Range range)
+  public void clear(Range range) throws DivideByZeroException
   {
 	List<Cell> cells = range.getCells();
 	int row = range.getBeginRow(), col = range.getBeginColumn();
