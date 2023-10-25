@@ -4,6 +4,7 @@ package xxl.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import xxl.app.exception.InvalidCellRangeException;
@@ -40,11 +41,18 @@ public class Spreadsheet implements Serializable {
     return _cutBuffer.getCutBuffer();
   }
 
-  public void copy(String range) throws UnrecognizedEntryException
-  {}
+  public void copy(String range) throws UnrecognizedEntryException, InvalidCellRangeException
+  {
+	Range newRange = buildRange(range);
 
-  public void cut(String range)
-  {}
+	_cutBuffer = new CutBuffer((ArrayList<Cell>)newRange.copyRange());
+  }
+
+  public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException
+  {
+	copy(range);
+	clear(range);
+  }
 
   public void paste(String range)
   {}
@@ -90,7 +98,6 @@ public class Spreadsheet implements Serializable {
 		if (col == range.getEndColumn())
 			row++;
 	}
-  }
   }
 
   public void addUser(User u){

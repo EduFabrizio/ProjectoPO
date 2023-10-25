@@ -67,9 +67,9 @@ public class Range{
 		return endColumn;
 	}
 
-	public List<Cell> copyRange(Range range)
+	public List<Cell> copyRange()
 	{
-		ArrayList<Cell> cells = (ArrayList<Cell>)range.getCells();
+		ArrayList<Cell> cells = (ArrayList<Cell>)getCells();
 		ArrayList<Cell> copia = new ArrayList<Cell>();
 
 		for (Cell c : cells)

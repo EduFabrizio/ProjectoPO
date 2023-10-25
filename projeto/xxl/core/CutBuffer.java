@@ -11,7 +11,7 @@ public class CutBuffer implements Serializable
 	private String _orientacao;
 
 	public CutBuffer(ArrayList<Cell> cells){
-		_cells=cells;
+		_cells = cells;
 		setOrientacao(cells);
 	}
 
