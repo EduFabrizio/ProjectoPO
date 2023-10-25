@@ -15,6 +15,8 @@ public class Sub extends BinaryFunction
 	{
 		int i;
 
+		if (_changed)
+		{}
 		try
 		{
 		i = _arg1.value().asInt() - _arg2.value().asInt();

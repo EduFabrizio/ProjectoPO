@@ -18,36 +18,45 @@ public class Spreadsheet implements Serializable {
   @Serial
   private static final long serialVersionUID = 202308312359L;
   
-  // FIXME define attributes
   private int _rows;
+
   private int _columns;
+
   private boolean _changed;
+
   private CutBuffer _cutBuffer;
+
   private Cell[][] _matrizCells;
-  // FIXME define contructor(s)
+
+
     public Spreadsheet(int rows, int columns){
       _rows = rows;
       _columns = columns;
       _changed = false;
 	  _matrizCells = new Cell[_rows][_columns];
   }
-  // FIXME define methods
+
   public List<Cell> getCutBuffer(){
     return _cutBuffer.getCells();
   }
+
   public void copy(String range) throws UnrecognizedEntryException{
   
   }
+
   public void clear(String range){
 
   }
+
   public void addUser(User u){
 
   }
+
   public void insert(int linha, int coluna , Content conteudo){
     _matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
 	_changed = true;
   }
+
   public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
     Parser parser = new Parser(this);
     Content newConteudo = parser.parseContent(conteudo);
@@ -57,7 +66,6 @@ public class Spreadsheet implements Serializable {
 public Cell[][] getMatrizCells(){
   return _matrizCells;
 }
-
 
 public Range buildRange(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
     String[] rangeCoordinates;

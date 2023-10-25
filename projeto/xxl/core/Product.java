@@ -1,5 +1,8 @@
 package xxl.core;
 
+import xxl.core.exception.AsIntException;
+import xxl.core.exception.DivideByZeroException;
+
 public class Product extends IntervalFunction
 {
 	public Product(Range range)
@@ -7,8 +10,23 @@ public class Product extends IntervalFunction
 		super(range, "PRODUCT");
 	}
 
-	protected Literal compute()
+	protected Literal compute() throws DivideByZeroException
 	{
-		return null;
+		int acumulator = 1;
+
+		if (_changed)
+		{}
+		for (Cell c : _range.getCells())
+		{
+			try
+			{
+				acumulator = acumulator * c.getContent().value().asInt();
+			}
+			catch (AsIntException ex)
+			{
+				return null;
+			}
+		}
+		return new LiteralInt(acumulator);
 	}
 }
