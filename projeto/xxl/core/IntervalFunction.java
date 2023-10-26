@@ -2,7 +2,7 @@ package xxl.core;
 
 import xxl.core.exception.DivideByZeroException;
 
-public abstract class IntervalFunction extends Function implements Subscriber
+public abstract class IntervalFunction extends Function
 {
 
 	protected boolean _changed;

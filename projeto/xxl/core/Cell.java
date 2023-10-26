@@ -62,6 +62,7 @@ public class Cell implements Serializable{
 	{
 		_funcDepend.add(s);
 	}
+
 	public void remFunc(Subscriber s)
 	{
 		_funcDepend.remove(s);

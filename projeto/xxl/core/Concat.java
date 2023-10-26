@@ -24,7 +24,9 @@ public class Concat extends IntervalFunction
 				concat += c.getContent().value().asString();
 			}
 			catch (AsStringException ex)
-			{}
+			{
+				return null;
+			}
 		}
 		return new LiteralString(concat);
 	}

@@ -25,7 +25,9 @@ public class Coalesce extends IntervalFunction
 				return new LiteralString(coalesce);
 			}
 			catch (AsStringException ex)
-			{}
+			{
+				return null;
+			}
 		}
 		return new LiteralString(coalesce);
 	}
