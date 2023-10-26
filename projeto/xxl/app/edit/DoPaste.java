@@ -3,7 +3,8 @@ package xxl.app.edit;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
-// FIXME import classes
+import xxl.core.exception.UnrecognizedEntryException;
+import xxl.core.exception.DivideByZeroException;
 
 /**
  * Paste command.
@@ -12,11 +13,19 @@ class DoPaste extends Command<Spreadsheet> {
 
   DoPaste(Spreadsheet receiver) {
     super(Label.PASTE, receiver);
-    // FIXME add fields
+    addStringField("Gama_paste", Message.address());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    // FIXME implement command
+    try{
+      _receiver.paste("Gama_paste");
+    }
+    catch(UnrecognizedEntryException e){
+
+    }
+    catch(DivideByZeroException e){
+
+    }
   }
 }
