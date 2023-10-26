@@ -67,6 +67,10 @@ public class Spreadsheet implements Serializable {
 			_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
 		else
 			_matrizCells[r - 1][col - 1].setContent(c.getContent());
+		if (r == newRange.getEndRow())
+			col++;
+		if (col == newRange.getEndColumn())
+			r++;
 	}
   }
 
