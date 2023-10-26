@@ -4,7 +4,6 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.Spreadsheet;
-// FIXME import classes
 import xxl.core.exception.UnrecognizedEntryException;
 
 /**
@@ -19,12 +18,14 @@ class DoCopy extends Command<Spreadsheet> {
   
   @Override
   protected final void execute() throws CommandException {
-    try{_receiver.copy("Gama_copy");}
+    try{
+      _receiver.copy("Gama_copy");
+    }
     catch(UnrecognizedEntryException e){
 
     }
     catch(InvalidCellRangeException e){
-      
+
     }
   }
 }

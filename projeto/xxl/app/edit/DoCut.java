@@ -3,6 +3,8 @@ package xxl.app.edit;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.DivideByZeroException;
+import xxl.core.exception.UnrecognizedEntryException;
 // FIXME import classes
 
 /**
@@ -12,11 +14,19 @@ class DoCut extends Command<Spreadsheet> {
 
   DoCut(Spreadsheet receiver) {
     super(Label.CUT, receiver);
-    // FIXME add fields
+    addStringField("Gama_cut", Message.address());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    // FIXME implement command
+    try{
+      _receiver.cut("Gama_cut");
+    }
+    catch(UnrecognizedEntryException e){
+
+    }
+  catch(DivideByZeroException e){
+      
+    }
   }
 }
