@@ -22,7 +22,7 @@ class DoShowCutBuffer extends Command<Spreadsheet> {
     ArrayList<Cell> cutBuffer = (ArrayList<Cell>)_receiver.getCutBufferSpreadsheet();
 	for (Cell c : cutBuffer)
 	{
-			_display.addLine(Integer.toString(c.getRow()) + ";" + Integer.toString(c.getColumn()) + "|" + c.toString());
+			_display.addLine(c.toString());
 	}
 	_display.display();
   }

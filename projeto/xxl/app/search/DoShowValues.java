@@ -28,7 +28,7 @@ class DoShowValues extends Command<Spreadsheet> {
 	
 	for (Cell c : list)
 	{
-			_display.addLine(c.getRow() + ";" + c.getColumn() + "|" + c.toString());
+			_display.addLine(c.toString());
 	}
 	_display.display();
   }
