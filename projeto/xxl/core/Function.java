@@ -20,6 +20,9 @@ public abstract class Function extends Content implements Subscriber
 		_cellDepend = new ArrayList<Cell>();
 	}
 
+	public void addFuncCell(Function func)
+	{}
+
 	public void update() throws DivideByZeroException
 	{
 		_value = compute();

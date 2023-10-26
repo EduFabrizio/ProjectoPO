@@ -12,13 +12,16 @@ public abstract class BinaryFunction extends Function
 		super(name);
 		_arg1 = arg1;
 		_arg2 = arg2;
-		
+		_arg1.addFuncCell(this);
+		_arg2.addFuncCell(this);
 	}
 
 	public String toString()
 	{
 		return "=" + _name + "(" + this.toFuncArg() + ")";
 	}
+
+
 
 	public String toFuncArg()
 	{

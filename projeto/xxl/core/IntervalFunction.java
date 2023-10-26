@@ -13,6 +13,10 @@ public abstract class IntervalFunction extends Function
 		super(name);
 		_changed = false;
 		_range = range;
+		for (Cell c : _range.getCells())
+		{
+			c.addFunc(this);
+		}
 	}
 
 	public void update(Literal value)

@@ -28,5 +28,6 @@ public class NullContent extends Content{
         throw new UnsupportedOperationException("Unimplemented method 'toFuncArg'");
     }
 
-
+	public void addFuncCell(Function func)
+	{}
 }

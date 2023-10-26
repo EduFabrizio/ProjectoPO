@@ -74,6 +74,24 @@ public class Spreadsheet implements Serializable {
 	}
   }
 
+  public List<Cell> getEqualValue(String value)
+  {
+	ArrayList<Cell> list = new ArrayList<Cell>();
+	String compare;
+	for (int r = 0; r < _rows; r++)
+	{
+		for (int col = 0; col < _columns; col++)
+		{
+			if (_matrizCells[r][col] == null)
+				continue;
+			compare = _matrizCells[r][col].getContent().toString().split("=")[0];
+			if (value.equals(compare))
+				list.add(_matrizCells[r][col]);
+		}
+	}
+	return list;
+  }
+
   public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
   {
 	Range newRange = buildRange(range);

@@ -18,6 +18,8 @@ public abstract class Content implements Serializable
 		return value().asString();
 	}
 
+	public abstract void addFuncCell(Function func);
+
 	public int asInt() throws AsIntException, DivideByZeroException
 	{
 		return value().asInt();

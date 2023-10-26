@@ -39,5 +39,10 @@ public class Reference extends Content
 			return "#VALUE" + toString();
 		}
 	}
+
+	public void addFuncCell(Function func)
+	{
+		_sheet.getMatrizCells()[_row][_column].addFunc(func);
+	}
 }
 

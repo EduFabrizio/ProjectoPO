@@ -18,4 +18,7 @@ public abstract class Literal extends Content
 	{
 		return toString();
 	}
+
+	public void addFuncCell(Function func)
+	{}
 }

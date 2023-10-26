@@ -1,7 +1,14 @@
 package xxl.app.search;
 
 import pt.tecnico.uilib.menus.Command;
+import xxl.core.LiteralString;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.DivideByZeroException;
+
+import java.util.ArrayList;
+
+import xxl.app.exception.OurCommandException;
+import xxl.core.Cell;
 // FIXME import classes
 
 /**
@@ -11,11 +18,18 @@ class DoShowValues extends Command<Spreadsheet> {
 
   DoShowValues(Spreadsheet receiver) {
     super(Label.SEARCH_VALUES, receiver);
-    // FIXME add fields
+    addStringField("showValue", Message.searchValue());
   }
   
   @Override
   protected final void execute() {
-    // FIXME implement command
+    String str = stringField("showValue");
+	ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualValue(str);
+	
+	for (Cell c : list)
+	{
+			_display.addLine(c.getRow() + ";" + c.getColumn() + "|" + c.toString());
+	}
+	_display.display();
   }
 }
