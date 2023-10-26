@@ -4,6 +4,7 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
 
@@ -25,14 +26,12 @@ class DoDelete extends Command<Spreadsheet> {
   protected final void execute() throws CommandException{
     
     try{
-      _receiver.clear("Gama_del");
+      _receiver.clear(stringField("Gama_del"));
     
   }
-  catch(UnrecognizedEntryException e){
-
+  catch(UnrecognizedEntryException| DivideByZeroException e){
+    throw new OurCommandException("" + e);
   }
-  catch(DivideByZeroException e){
-    
-  }
+  
   }
 }

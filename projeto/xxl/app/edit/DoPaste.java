@@ -2,6 +2,7 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
 import xxl.core.exception.DivideByZeroException;
@@ -19,13 +20,10 @@ class DoPaste extends Command<Spreadsheet> {
   @Override
   protected final void execute() throws CommandException {
     try{
-      _receiver.paste("Gama_paste");
+      _receiver.paste(stringField("Gama_paste"));
     }
-    catch(UnrecognizedEntryException e){
-
-    }
-    catch(DivideByZeroException e){
-
+    catch(UnrecognizedEntryException|DivideByZeroException e){
+      throw new OurCommandException(""+e);
     }
   }
 }

@@ -2,6 +2,7 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.DivideByZeroException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -20,13 +21,10 @@ class DoCut extends Command<Spreadsheet> {
   @Override
   protected final void execute() throws CommandException {
     try{
-      _receiver.cut("Gama_cut");
+      _receiver.cut(stringField("Gama_cut"));
     }
-    catch(UnrecognizedEntryException e){
-
-    }
-  catch(DivideByZeroException e){
-      
+    catch(UnrecognizedEntryException|DivideByZeroException e){
+      throw new OurCommandException(""+e);
     }
   }
 }
