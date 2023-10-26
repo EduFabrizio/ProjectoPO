@@ -2,6 +2,10 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.DivideByZeroException;
+
+import java.util.ArrayList;
+import xxl.core.Cell;
 // FIXME import classes
 
 /**
@@ -15,6 +19,16 @@ class DoShowCutBuffer extends Command<Spreadsheet> {
   
   @Override
   protected final void execute() {
-    // FIXME implement command
+    ArrayList<Cell> cutBuffer = (ArrayList<Cell>)_receiver.getCutBufferSpreadsheet();
+	for (Cell c : cutBuffer)
+	{
+		try
+		{
+			_display.addLine(Integer.toString(c.getRow()) + ";" + Integer.toString(c.getColumn()) + "|" + c.getContent().showCont());
+		}
+		catch(DivideByZeroException e)
+		{}
+	}
+	_display.display();
   }
 }
