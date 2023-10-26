@@ -55,8 +55,20 @@ public class Spreadsheet implements Serializable {
 	clear(range);
   }
 
-  public void paste(String range)
-  {}
+  public void paste(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
+  {
+	Range newRange = buildRange(range);
+	ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
+	int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
+
+	for (Cell c : cells)
+	{
+		if (_matrizCells[r - 1][col - 1] == null)
+			_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
+		else
+			_matrizCells[r - 1][col - 1].setContent(c.getContent());
+	}
+  }
 
   public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
   {
