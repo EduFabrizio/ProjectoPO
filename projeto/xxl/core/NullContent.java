@@ -11,7 +11,7 @@ public class NullContent extends Content{
 
     @Override
     Literal value() throws DivideByZeroException {
-        return new LiteralString("");
+        return null;
     }
 
     @Override

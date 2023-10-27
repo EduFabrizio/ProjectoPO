@@ -17,6 +17,8 @@ public class Mul extends BinaryFunction
 
 		try
 		{
+			if (_arg1.value() == null || _arg2.value() == null || _arg1.value().toString() == "#VALUE" || _arg2.value().toString() == "#VALUE")
+				return new LiteralError();
 			i = _arg1.value().asInt() * _arg2.value().asInt();
 		}
 		catch(AsIntException ex)

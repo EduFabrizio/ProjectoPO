@@ -21,6 +21,8 @@ public class Coalesce extends IntervalFunction
 		{
 			try
 			{
+				if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
+					return new LiteralError();
 				coalesce += c.getContent().value().asString();
 				return new LiteralString(coalesce);
 			}

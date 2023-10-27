@@ -1,7 +1,10 @@
 package xxl.app.search;
 
 import pt.tecnico.uilib.menus.Command;
+import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.DivideByZeroException;
+import xxl.app.exception.OurCommandException;
 import xxl.core.Cell;
 import java.util.ArrayList;
 // FIXME import classes
@@ -17,14 +20,21 @@ class DoShowFunctions extends Command<Spreadsheet> {
   }
 
   @Override
-  protected final void execute() {
+  protected final void execute() throws CommandException{
     String str = stringField("show_func");
-	ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualFuntion(str);
-	
-	for (Cell c : list)
+	try
 	{
-		_display.addLine(c.toString());
+		ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualFuntion(str);
+	
+		for (Cell c : list)
+		{
+			_display.addLine(c.toString());
+		}
+		_display.display();
 	}
-	_display.display();
+	catch(DivideByZeroException e)
+	{
+		throw new OurCommandException("" + e);
+	}
   }
 }

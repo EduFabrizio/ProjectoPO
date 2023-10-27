@@ -70,14 +70,14 @@ public class Spreadsheet implements Serializable {
 		}
 	}
 
-	public List<Cell> getEqualValue(String value) {
+	public List<Cell> getEqualValue(String value) throws DivideByZeroException{
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		String compare;
 		for (int r = 0; r < _rows; r++) {
 			for (int col = 0; col < _columns; col++) {
 				if (_matrizCells[r][col] == null)
 					continue;
-				compare = _matrizCells[r][col].getContent().toString().split("=")[0];
+				compare = _matrizCells[r][col].getContent().showCont().split("=")[0];
 				if (value.equals(compare))
 					list.add(_matrizCells[r][col]);
 			}
@@ -85,15 +85,15 @@ public class Spreadsheet implements Serializable {
 		return list;
 	}
 
-	public List<Cell> getEqualFuntion(String func) {
+	public List<Cell> getEqualFuntion(String func)  throws DivideByZeroException{
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		String compare;
 		for (int r = 0; r < _rows; r++) {
 			for (int col = 0; col < _columns; col++) {
 				if (_matrizCells[r][col] == null)
 					continue;
-				if (_matrizCells[r][col].getContent().toString().indexOf('=') != -1)
-					compare = _matrizCells[r][col].getContent().toString().split("=")[1];
+				if (_matrizCells[r][col].getContent().showCont().indexOf('=') != -1)
+					compare = _matrizCells[r][col].getContent().toString().split("[=(]")[1];
 				else
 					compare = "";
 				if (func.contains(compare))
@@ -142,8 +142,12 @@ public class Spreadsheet implements Serializable {
 	}
 
 	public void insert(int linha, int coluna, Content conteudo) {
-		_matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
-		_changed = true;
+		if (linha <= _rows && coluna <= _columns)
+		{
+			_matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
+			_changed = true;
+		}
+		
 	}
 
 	public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException,

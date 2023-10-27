@@ -21,6 +21,8 @@ public class Concat extends IntervalFunction
 		{
 			try
 			{
+				if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
+					return new LiteralError();
 				concat += c.getContent().value().asString();
 			}
 			catch (AsStringException ex)

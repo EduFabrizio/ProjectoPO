@@ -1,6 +1,7 @@
 package xxl.app.search;
 
 import pt.tecnico.uilib.menus.Command;
+import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.LiteralString;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.DivideByZeroException;
@@ -22,14 +23,20 @@ class DoShowValues extends Command<Spreadsheet> {
   }
   
   @Override
-  protected final void execute() {
+  protected final void execute() throws CommandException{
     String str = stringField("showValue");
-	ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualValue(str);
-	
-	for (Cell c : list)
+	try
 	{
-		_display.addLine(c.toString());
+		ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualValue(str);
+		for (Cell c : list)
+		{
+			_display.addLine(c.toString());
+		}
+		_display.display();
 	}
-	_display.display();
+	catch(DivideByZeroException e)
+	{
+		throw new OurCommandException("" + e);
+	}
   }
 }

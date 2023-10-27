@@ -18,6 +18,8 @@ public class Product extends IntervalFunction
 		{
 			try
 			{
+				if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
+					return new LiteralError();
 				acumulator = acumulator * c.getContent().value().asInt();
 			}
 			catch (AsIntException ex)

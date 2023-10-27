@@ -19,6 +19,8 @@ public class Div extends BinaryFunction
 		{
 			if (_arg2.value().asInt() == 0)
 				throw new DivideByZeroException();
+				if (_arg1.value() == null || _arg2.value() == null || _arg1.value().toString() == "#VALUE" || _arg2.value().toString() == "#VALUE")
+				return new LiteralError();
 			i = _arg1.value().asInt() / _arg2.value().asInt();
 		}
 		catch(AsIntException ex)

@@ -44,7 +44,7 @@ public abstract class Function extends Content implements Subscriber
 	public Literal value() throws DivideByZeroException
 	{
 		if (_value == null)
-			return new LiteralString("");
+			_value = compute();
 		return _value;
 	}
 }
