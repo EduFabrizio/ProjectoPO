@@ -31,7 +31,7 @@ public class Range{
     }
     public List<Cell> getCells(){
         int i =0;
-		int j;
+		int j =0;
         Cell[][] matCells = _spreadsheet.getMatrizCells();
         List<Cell> lstCells = new ArrayList<Cell>();
 		for (i = beginRow;  i <= endRow; i++){
@@ -80,7 +80,7 @@ public class Range{
 				copia.add(new Cell(c.getRow(), c.getColumn(), c.getContent()));
 			if (row == endRow)
 				col ++;
-			if (col == endColumn)
+			else if (col == endColumn)
 				row++;
 		}
 		return copia;

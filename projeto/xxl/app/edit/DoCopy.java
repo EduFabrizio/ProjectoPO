@@ -4,6 +4,7 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.UnrecognizedEntryException;
 import xxl.app.exception.OurCommandException;
 
@@ -22,8 +23,8 @@ class DoCopy extends Command<Spreadsheet> {
     try{
       _receiver.copy(stringField("Gama_copy"));
     }
-    catch(UnrecognizedEntryException | InvalidCellRangeException e){
-      throw new OurCommandException(""+e);
+    catch(UnrecognizedEntryException | ImpossibleRangeException e){
+      throw new InvalidCellRangeException(e.getMessage());
     }
   }
 }

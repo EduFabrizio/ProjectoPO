@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xxl.app.exception.InvalidCellRangeException;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -40,7 +41,7 @@ public class Spreadsheet implements Serializable {
 		return _cutBuffer.getCutBuffer();
 	}
 
-	public void copy(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
+	public void copy(String range) throws UnrecognizedEntryException, ImpossibleRangeException {
 		Range newRange = buildRange(range);
 		ArrayList<Cell> list = (ArrayList<Cell>) newRange.copyRange();
 		ArrayList<Cell> buffer = new ArrayList<Cell>();
@@ -56,13 +57,13 @@ public class Spreadsheet implements Serializable {
 		_cutBuffer = new CutBuffer(buffer);
 	}
 
-	public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException{
+	public void cut(String range) throws UnrecognizedEntryException, ImpossibleRangeException{
 		copy(range);
 		clear(range);
 	}
 
 	public void paste(String range)
-			throws UnrecognizedEntryException, InvalidCellRangeException{
+			throws UnrecognizedEntryException, ImpossibleRangeException{
 		Range newRange = buildRange(range);
 		ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
 		int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
@@ -113,7 +114,7 @@ public class Spreadsheet implements Serializable {
 	}
 
 	public void clear(String range)
-			throws UnrecognizedEntryException, InvalidCellRangeException{
+			throws UnrecognizedEntryException, ImpossibleRangeException{
 		Range newRange = buildRange(range);
 		List<Cell> cells = newRange.getCells();
 		int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
@@ -165,7 +166,7 @@ public class Spreadsheet implements Serializable {
 	}
 
 	public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException,
-			IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
+			IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, ImpossibleRangeException{
 		Parser parser = new Parser(this);
 		Content newConteudo = parser.parseContent(conteudo);
 		insert(linha, coluna, newConteudo);
@@ -175,7 +176,7 @@ public class Spreadsheet implements Serializable {
 		return _matrizCells;
 	}
 
-	public Range buildRange(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
+	public Range buildRange(String range) throws UnrecognizedEntryException, ImpossibleRangeException {
 		String[] rangeCoordinates;
 		int firstRow, firstColumn, lastRow, lastColumn;
 		if (range.indexOf(':') != -1) {
@@ -191,11 +192,13 @@ public class Spreadsheet implements Serializable {
 			firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
 		}
 
+		if (firstRow - lastRow != 0 && firstColumn - lastColumn != 0)
+			throw new ImpossibleRangeException(range);
 		if (firstRow <= _matrizCells.length && lastRow <= _matrizCells.length && firstColumn <= _matrizCells[0].length
 				&& lastColumn <= _matrizCells[0].length)
 			return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
 		else
-			throw new InvalidCellRangeException(range);
+			throw new ImpossibleRangeException(range);
 	}
 
 	public boolean getChanged() {

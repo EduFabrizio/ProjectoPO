@@ -4,8 +4,10 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import xxl.app.exception.InvalidCellRangeException;
 import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.UnrecognizedEntryException;
 
 // FIXME import classes
@@ -27,8 +29,8 @@ class DoDelete extends Command<Spreadsheet> {
       _receiver.clear(stringField("Gama_del"));
     
   }
-  catch(UnrecognizedEntryException e){
-    throw new OurCommandException("" + e);
+  catch(UnrecognizedEntryException | ImpossibleRangeException e){
+    throw new InvalidCellRangeException(e.getMessage());
   }
   
   }

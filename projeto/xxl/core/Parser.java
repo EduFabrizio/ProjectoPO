@@ -3,12 +3,8 @@ package xxl.core;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.Reader;
 
-import java.util.Collection;
-import java.util.ArrayList;
-
-import xxl.app.exception.InvalidCellRangeException;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
@@ -23,7 +19,7 @@ class Parser {
     _spreadsheet = spreadsheet;
   }
 
-  Spreadsheet parseFile(String filename) throws IOException, UnrecognizedEntryException /* More Exceptions? */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException {
+  Spreadsheet parseFile(String filename) throws IOException, UnrecognizedEntryException /* More Exceptions? */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, ImpossibleRangeException {
     try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
       parseDimensions(reader);
 
@@ -56,7 +52,7 @@ class Parser {
     _spreadsheet = new Spreadsheet(rows, columns);
   }
 
-  private void parseLine(String line) throws UnrecognizedEntryException /*, more exceptions? */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
+  private void parseLine(String line) throws UnrecognizedEntryException /*, more exceptions? */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, ImpossibleRangeException{
     String[] components = line.split("\\|");
 
     if (components.length == 1) // do nothing
@@ -71,7 +67,7 @@ class Parser {
   }
 
   // parse the begining of an expression
-  Content parseContent(String contentSpecification) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException {
+  Content parseContent(String contentSpecification) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, ImpossibleRangeException{
     char c = contentSpecification.charAt(0);
 
     if (c == '=')
@@ -94,7 +90,7 @@ class Parser {
   }
 
   // contentSpecification is what comes after '='
-  private Content parseContentExpression(String contentSpecification) throws UnrecognizedEntryException /* more exceptions */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException {
+  private Content parseContentExpression(String contentSpecification) throws UnrecognizedEntryException /* more exceptions */, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, ImpossibleRangeException {
     if (contentSpecification.contains("("))
       return parseFunction(contentSpecification);
     // It is a reference
@@ -102,7 +98,7 @@ class Parser {
     return new Reference(Integer.parseInt(address[0].trim()), Integer.parseInt(address[1].trim()), _spreadsheet);
   }
 
-  private Content parseFunction(String functionSpecification) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException /*more exceptions */, InvalidCellRangeException {
+  private Content parseFunction(String functionSpecification) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException /*more exceptions */, ImpossibleRangeException {
     String[] components = functionSpecification.split("[()]");
     if (components[1].contains(","))
       return parseBinaryFunction(components[0], components[1]);
@@ -134,7 +130,7 @@ class Parser {
   }
 
   private Content parseIntervalFunction(String functionName, String rangeDescription)
-    throws UnrecognizedEntryException, IncorrectIntervalFunctionException /* , more exceptions ? */, InvalidCellRangeException {
+    throws UnrecognizedEntryException, IncorrectIntervalFunctionException /* , more exceptions ? */, ImpossibleRangeException {
     Range range = _spreadsheet.buildRange(rangeDescription);
     return switch (functionName) {
       case "CONCAT" -> new Concat(range);

@@ -2,8 +2,10 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import xxl.app.exception.InvalidCellRangeException;
 import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.UnrecognizedEntryException;
 // FIXME import classes
 
@@ -22,8 +24,8 @@ class DoCut extends Command<Spreadsheet> {
     try{
       _receiver.cut(stringField("Gama_cut"));
     }
-    catch(UnrecognizedEntryException e){
-      throw new OurCommandException(""+e);
+    catch(UnrecognizedEntryException | ImpossibleRangeException e){
+      throw new InvalidCellRangeException(e.getMessage());
     }
   }
 }

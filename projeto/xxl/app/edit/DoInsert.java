@@ -10,6 +10,7 @@ import xxl.core.Cell;
 import xxl.core.NullContent;
 import xxl.core.Range;
 import xxl.core.Spreadsheet;
+import xxl.core.exception.ImpossibleRangeException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
 // FIXME import classes
@@ -31,25 +32,14 @@ class DoInsert extends Command<Spreadsheet> {
    try{
 	
     Range gamaInserirRange = _receiver.buildRange(stringField("Gama_Inserir"));
-    // int row = gamaInserirRange.getBeginRow(), col = gamaInserirRange.getBeginColumn();
-	
-    // while (row != gamaInserirRange.getEndRow() || col != gamaInserirRange.getEndColumn()){
-	// 	{
-	// 		_receiver.insertContent(row, col, stringField("conteudo"));
-	// 	}
-	// 	if (row == gamaInserirRange.getEndRow())
-	// 		col++;
-	// 	if (col == gamaInserirRange.getEndColumn())
-	// 		row++;
-    // }
 	List<Cell> cells= gamaInserirRange.copyRange();
 
 	for (Cell cell : cells) {
 		_receiver.insertContent(cell.getRow(), cell.getColumn(), stringField("conteudo"));
 	}
   }
-  catch(UnrecognizedEntryException|InvalidCellRangeException|IncorrectBinaryFunctionException|IncorrectIntervalFunctionException e){
-    throw new OurCommandException(""+e);
+  catch(UnrecognizedEntryException|ImpossibleRangeException|IncorrectBinaryFunctionException|IncorrectIntervalFunctionException e){
+    throw new InvalidCellRangeException(e.getMessage());
   }
 }
 
