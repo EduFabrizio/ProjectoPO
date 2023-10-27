@@ -6,26 +6,22 @@ public class NullContent extends Content{
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        return "";
     }
 
     @Override
     Literal value() throws DivideByZeroException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'value'");
+        return new LiteralString("");
     }
 
     @Override
     public String showCont() throws DivideByZeroException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showCont'");
+        return "";
     }
 
     @Override
     public String toFuncArg() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toFuncArg'");
+        return "";
     }
 
 	public void addFuncCell(Function func)
