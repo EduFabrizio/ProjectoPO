@@ -23,7 +23,7 @@ public class Product extends IntervalFunction
 			}
 			catch (AsIntException ex)
 			{
-				return null;
+				return new LiteralError();
 			}
 		}
 		return new LiteralInt(acumulator);
