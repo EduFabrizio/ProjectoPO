@@ -42,8 +42,18 @@ public class Spreadsheet implements Serializable {
 
 	public void copy(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
 		Range newRange = buildRange(range);
-
-		_cutBuffer = new CutBuffer((ArrayList<Cell>) newRange.copyRange());
+		ArrayList<Cell> list = (ArrayList<Cell>) newRange.copyRange();
+		ArrayList<Cell> buffer = new ArrayList<Cell>();
+		int row = 0, col = 0;
+		for (Cell c : list)
+		{
+			buffer.add(new Cell(row + 1, col + 1, c.getContent()));
+			if (newRange.getBeginColumn() == newRange.getEndColumn())
+				row++;
+			if (newRange.getBeginRow() == newRange.getEndRow())
+				col++;
+		}
+		_cutBuffer = new CutBuffer(buffer);
 	}
 
 	public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException{
