@@ -92,7 +92,10 @@ public class Spreadsheet implements Serializable {
 			for (int col = 0; col < _columns; col++) {
 				if (_matrizCells[r][col] == null)
 					continue;
-				compare = _matrizCells[r][col].getContent().toString().split("=")[1];
+				if (_matrizCells[r][col].getContent().toString().indexOf('=') != -1)
+					compare = _matrizCells[r][col].getContent().toString().split("=")[1];
+				else
+					compare = "";
 				if (func.contains(compare))
 					list.add(_matrizCells[r][col]);
 			}

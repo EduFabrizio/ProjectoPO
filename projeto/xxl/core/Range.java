@@ -71,10 +71,18 @@ public class Range{
 	{
 		ArrayList<Cell> cells = (ArrayList<Cell>)getCells();
 		ArrayList<Cell> copia = new ArrayList<Cell>();
+		int row = beginRow, col = beginColumn;
 
 		for (Cell c : cells)
 		{
-			copia.add(new Cell(c.getRow(), c.getColumn(), c.getContent()));
+			if (c == null)
+				copia.add(new Cell(row, col, new NullContent()));
+			else
+				copia.add(new Cell(c.getRow(), c.getColumn(), c.getContent()));
+			if (row == endRow)
+				col ++;
+			if (col == endColumn)
+				row++;
 		}
 		return copia;
 	}

@@ -42,7 +42,9 @@ public class Reference extends Content
 
 	public void addFuncCell(Function func)
 	{
-		_sheet.getMatrizCells()[_row][_column].addFunc(func);
+		if (_sheet.getMatrizCells()[_row - 1][_column - 1] == null)
+			_sheet.getMatrizCells()[_row - 1][_column - 1] = new Cell(_row, _column, new NullContent());
+		_sheet.getMatrizCells()[_row - 1][_column - 1].addFunc(func);
 	}
 }
 

@@ -18,7 +18,7 @@ class DoShowFunctions extends Command<Spreadsheet> {
 
   @Override
   protected final void execute() {
-    String str = stringField("showValue");
+    String str = stringField("show_func");
 	ArrayList<Cell> list = (ArrayList<Cell>)_receiver.getEqualFuntion(str);
 	
 	for (Cell c : list)
