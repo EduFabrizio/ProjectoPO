@@ -96,7 +96,7 @@ public class Spreadsheet implements Serializable {
 					compare = _matrizCells[r][col].getContent().toString().split("[=(]")[1];
 				else
 					compare = "";
-				if (func.contains(compare))
+				if (compare.contains(func))
 					list.add(_matrizCells[r][col]);
 			}
 		}
