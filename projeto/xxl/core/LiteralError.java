@@ -16,5 +16,8 @@ public class LiteralError extends Literal
 		throw new AsIntException(_errorMessage);
 	}
 
-	
+	public Literal value()
+	{
+		return this;
+	}
 }

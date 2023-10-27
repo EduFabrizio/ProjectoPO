@@ -42,6 +42,7 @@ public class Spreadsheet implements Serializable {
 	}
 
 	public void copy(String range) throws UnrecognizedEntryException, ImpossibleRangeException {
+		String orientacao = "";
 		Range newRange = buildRange(range);
 		ArrayList<Cell> list = (ArrayList<Cell>) newRange.copyRange();
 		ArrayList<Cell> buffer = new ArrayList<Cell>();
@@ -50,11 +51,17 @@ public class Spreadsheet implements Serializable {
 		{
 			buffer.add(new Cell(row + 1, col + 1, c.getContent()));
 			if (newRange.getBeginColumn() == newRange.getEndColumn())
+			{
 				row++;
-			if (newRange.getBeginRow() == newRange.getEndRow())
+				orientacao = "row";
+			}	
+			else if (newRange.getBeginRow() == newRange.getEndRow())
+			{
 				col++;
+				orientacao = "column";
+			}	
 		}
-		_cutBuffer = new CutBuffer(buffer);
+		_cutBuffer = new CutBuffer(buffer, orientacao);
 	}
 
 	public void cut(String range) throws UnrecognizedEntryException, ImpossibleRangeException{
@@ -65,19 +72,32 @@ public class Spreadsheet implements Serializable {
 	public void paste(String range)
 			throws UnrecognizedEntryException, ImpossibleRangeException{
 		Range newRange = buildRange(range);
+		String orientacao = _cutBuffer.getOrientacao();
 		ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
-		int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
-
-		for (Cell c : cells) {
-			if (_matrizCells[r - 1][col - 1] == null)
-				_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
-			else
-				_matrizCells[r - 1][col - 1].setContent(c.getContent());
-			if (r == newRange.getEndRow())
+		int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
+		for (Cell c : cells)
+		{
+			if (row <= _rows && col <= _columns)
+				_matrizCells[row - 1][col - 1] = new Cell(row, col, c.getContent());
+			if (orientacao == "row")
+				row++;
+			else if (orientacao == "column")
 				col++;
-			if (col == newRange.getEndColumn())
-				r++;
 		}
+		// ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
+		// int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
+
+		// for (Cell c : cells) {
+		// 	if (_matrizCells[r - 1][col - 1] == null)
+		// 		_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
+		// 	else
+		// 		_matrizCells[r - 1][col - 1].setContent(c.getContent());
+		// 	if (r == newRange.getEndRow())
+		// 		col++;
+		// 	if (col == newRange.getEndColumn())
+		// 		r++;
+		//}
+
 	}
 
 	public List<Cell> getEqualValue(String value){

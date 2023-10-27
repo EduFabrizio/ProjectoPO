@@ -20,14 +20,17 @@ public class Coalesce extends IntervalFunction
 		{
 			try
 			{
-				if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
-					return new LiteralError();
-				coalesce += c.getContent().value().asString();
-				return new LiteralString(coalesce);
+				if (c != null)
+				{
+					if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
+						continue;
+					coalesce += c.getContent().value().asString();
+					return new LiteralString(coalesce);
+				}
 			}
 			catch (AsStringException ex)
 			{
-				return null;
+				continue;
 			}
 		}
 		return new LiteralString(coalesce);

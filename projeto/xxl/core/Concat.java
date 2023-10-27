@@ -14,7 +14,7 @@ public class Concat extends IntervalFunction
 	protected Literal compute()
 	{
 		List<Cell> cells = _range.getCells();
-		String concat = "";
+		String concat = "\'";
 
 		for (Cell c : cells)
 		{
@@ -22,7 +22,7 @@ public class Concat extends IntervalFunction
 			{
 				if (c.getContent().value() == null || c.getContent().value().toString() == "#VALUE")
 					return new LiteralError();
-				concat += c.getContent().value().asString();
+				concat += c.getContent().value().asString().split("\'")[1];
 			}
 			catch (AsStringException ex)
 			{

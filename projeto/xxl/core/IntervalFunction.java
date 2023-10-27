@@ -29,6 +29,8 @@ public abstract class IntervalFunction extends Function
 
 	public String showCont()
 	{
+		if (value() == null)
+			update();
 		return value().toString() + toString();
 	}
 
