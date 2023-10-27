@@ -52,10 +52,14 @@ public class Cell implements Serializable{
 
 	public void notifyFuncs() throws DivideByZeroException
 	{
-		for (Subscriber s : _funcDepend)
+		if (_funcDepend != null)
 		{
-			s.update();
+			for (Subscriber s : _funcDepend)
+			{
+				s.update();
+			}
 		}
+		
 	}
 
 	public void addFunc(Subscriber s)
