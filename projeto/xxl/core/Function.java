@@ -18,6 +18,7 @@ public abstract class Function extends Content implements Subscriber
 	{
 		_name = name;
 		_cellDepend = new ArrayList<Cell>();
+
 	}
 
 	public void addFuncCell(Function func)
@@ -42,6 +43,8 @@ public abstract class Function extends Content implements Subscriber
 
 	public Literal value() throws DivideByZeroException
 	{
+		if (_value == null)
+			return new LiteralString("");
 		return _value;
 	}
 }

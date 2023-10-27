@@ -17,209 +17,188 @@ import xxl.core.exception.UnrecognizedEntryException;
  * Class representing a spreadsheet.
  */
 public class Spreadsheet implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 202308312359L;
-  
-  private int _rows;
+	@Serial
+	private static final long serialVersionUID = 202308312359L;
 
-  private int _columns;
+	private int _rows;
 
-  private boolean _changed;
+	private int _columns;
 
-  private CutBuffer _cutBuffer;
+	private boolean _changed;
 
-  private Cell[][] _matrizCells;
+	private CutBuffer _cutBuffer;
 
+	private Cell[][] _matrizCells;
 
-    public Spreadsheet(int rows, int columns){
-      _rows = rows;
-      _columns = columns;
-      _changed = false;
-	  _matrizCells = new Cell[_rows][_columns];
-  }
+	public Spreadsheet(int rows, int columns) {
+		_rows = rows;
+		_columns = columns;
+		_changed = false;
+		_matrizCells = new Cell[_rows][_columns];
+	}
 
-  public List<Cell> getCutBufferSpreadsheet(){
-    return _cutBuffer.getCutBuffer();
-  }
+	public List<Cell> getCutBufferSpreadsheet() {
+		return _cutBuffer.getCutBuffer();
+	}
 
-  public void copy(String range) throws UnrecognizedEntryException, InvalidCellRangeException
-  {
-	Range newRange = buildRange(range);
+	public void copy(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
+		Range newRange = buildRange(range);
 
-	_cutBuffer = new CutBuffer((ArrayList<Cell>)newRange.copyRange());
-  }
+		_cutBuffer = new CutBuffer((ArrayList<Cell>) newRange.copyRange());
+	}
 
-  public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
-  {
-	copy(range);
-	clear(range);
-  }
+	public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+		copy(range);
+		clear(range);
+	}
 
-  public void paste(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
-  {
-	Range newRange = buildRange(range);
-	ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
-	int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
+	public void paste(String range)
+			throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+		Range newRange = buildRange(range);
+		ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
+		int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
 
-	for (Cell c : cells)
-	{
-		if (_matrizCells[r - 1][col - 1] == null)
-			_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
+		for (Cell c : cells) {
+			if (_matrizCells[r - 1][col - 1] == null)
+				_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
+			else
+				_matrizCells[r - 1][col - 1].setContent(c.getContent());
+			if (r == newRange.getEndRow())
+				col++;
+			if (col == newRange.getEndColumn())
+				r++;
+		}
+	}
+
+	public List<Cell> getEqualValue(String value) {
+		ArrayList<Cell> list = new ArrayList<Cell>();
+		String compare;
+		for (int r = 0; r < _rows; r++) {
+			for (int col = 0; col < _columns; col++) {
+				if (_matrizCells[r][col] == null)
+					continue;
+				compare = _matrizCells[r][col].getContent().toString().split("=")[0];
+				if (value.equals(compare))
+					list.add(_matrizCells[r][col]);
+			}
+		}
+		return list;
+	}
+
+	public List<Cell> getEqualFuntion(String func) {
+		ArrayList<Cell> list = new ArrayList<Cell>();
+		String compare;
+		for (int r = 0; r < _rows; r++) {
+			for (int col = 0; col < _columns; col++) {
+				if (_matrizCells[r][col] == null)
+					continue;
+				compare = _matrizCells[r][col].getContent().toString().split("=")[1];
+				if (func.contains(compare))
+					list.add(_matrizCells[r][col]);
+			}
+		}
+		return list;
+	}
+
+	public void clear(String range)
+			throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+		Range newRange = buildRange(range);
+		List<Cell> cells = newRange.getCells();
+		int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
+		for (Cell c : cells) {
+			if (c == null) {
+				c = new Cell(row, col, new NullContent());
+			} else {
+				c.setContent(new NullContent());
+			}
+			if (row == newRange.getEndRow())
+				col++;
+			if (col == newRange.getEndColumn())
+				row++;
+		}
+	}
+
+	public void clear(Range range) throws DivideByZeroException {
+		List<Cell> cells = range.getCells();
+		int row = range.getBeginRow(), col = range.getBeginColumn();
+		for (Cell c : cells) {
+			if (c == null) {
+				c = new Cell(row, col, new NullContent());
+			} else {
+				c.setContent(new NullContent());
+			}
+			if (row == range.getEndRow())
+				col++;
+			if (col == range.getEndColumn())
+				row++;
+		}
+	}
+
+	public void addUser(User u) {
+
+	}
+
+	public void insert(int linha, int coluna, Content conteudo) {
+		_matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
+		_changed = true;
+	}
+
+	public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException,
+			IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException {
+		Parser parser = new Parser(this);
+		Content newConteudo = parser.parseContent(conteudo);
+		insert(linha, coluna, newConteudo);
+	}
+
+	public Cell[][] getMatrizCells() {
+		return _matrizCells;
+	}
+
+	public Range buildRange(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
+		String[] rangeCoordinates;
+		int firstRow, firstColumn, lastRow, lastColumn;
+		if (range.indexOf(':') != -1) {
+			rangeCoordinates = range.split("[:;]");
+			firstRow = Integer.parseInt(rangeCoordinates[0]);
+			firstColumn = Integer.parseInt(rangeCoordinates[1]);
+			lastRow = Integer.parseInt(rangeCoordinates[2]);
+			lastColumn = Integer.parseInt(rangeCoordinates[3]);
+
+		} else {
+			rangeCoordinates = range.split(";");
+			firstRow = lastRow = Integer.parseInt(rangeCoordinates[0]);
+			firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
+		}
+
+		if (firstRow <= _matrizCells.length && lastRow <= _matrizCells.length && firstColumn <= _matrizCells[0].length
+				&& lastColumn <= _matrizCells[0].length)
+			return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
 		else
-			_matrizCells[r - 1][col - 1].setContent(c.getContent());
-		if (r == newRange.getEndRow())
-			col++;
-		if (col == newRange.getEndColumn())
-			r++;
+			throw new InvalidCellRangeException(range);
 	}
-  }
 
-  public List<Cell> getEqualValue(String value)
-  {
-	ArrayList<Cell> list = new ArrayList<Cell>();
-	String compare;
-	for (int r = 0; r < _rows; r++)
-	{
-		for (int col = 0; col < _columns; col++)
-		{
-			if (_matrizCells[r][col] == null)
-				continue;
-			compare = _matrizCells[r][col].getContent().toString().split("=")[0];
-			if (value.equals(compare))
-				list.add(_matrizCells[r][col]);
-		}
+	public boolean getChanged() {
+		return _changed;
 	}
-	return list;
-  }
 
-  public List<Cell> getEqualFuntion(String func)
-  {
-	ArrayList<Cell> list = new ArrayList<Cell>();
-	String compare;
-	for (int r = 0; r < _rows; r++)
-	{
-		for (int col = 0; col < _columns; col++)
-		{
-			if (_matrizCells[r][col] == null)
-				continue;
-			compare = _matrizCells[r][col].getContent().toString().split("=")[1];
-			if (func.contains(compare))
-				list.add(_matrizCells[r][col]);
-		}
+	public void setChanged(boolean valor) {
+		_changed = valor;
 	}
-	return list;
-  }
 
-  public void clear(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException
-  {
-	Range newRange = buildRange(range);
-	List<Cell> cells = newRange.getCells();
-	int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
-	for (Cell c : cells)
-  	{
-		if (c == null)
-		{
-			c = new Cell(row, col, new NullContent());
-		}
-		else
-		{
-			c.setContent(new NullContent());
-		}
-		if (row == newRange.getEndRow())
-			col++;
-		if (col == newRange.getEndColumn())
-			row++;
+	public int getRow() {
+		return _rows;
 	}
-  }
 
-  public void clear(Range range) throws DivideByZeroException
-  {
-	List<Cell> cells = range.getCells();
-	int row = range.getBeginRow(), col = range.getBeginColumn();
-	for (Cell c : cells)
-  	{
-		if (c == null)
-		{
-			c = new Cell(row, col, new NullContent());
-		}
-		else
-		{
-			c.setContent(new NullContent());
-		}
-		if (row == range.getEndRow())
-			col++;
-		if (col == range.getEndColumn())
-			row++;
+	public int getColumn() {
+		return _columns;
 	}
-  }
-
-  public void addUser(User u){
-
-  }
-
-  public void insert(int linha, int coluna , Content conteudo){
-    _matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
-	_changed = true;
-  }
-
-  public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException, IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
-    Parser parser = new Parser(this);
-    Content newConteudo = parser.parseContent(conteudo);
-    insert(linha, coluna, newConteudo);
-  }
-
-public Cell[][] getMatrizCells(){
-  return _matrizCells;
-}
-
-public Range buildRange(String range) throws UnrecognizedEntryException, InvalidCellRangeException {
-    String[] rangeCoordinates;
-    int firstRow, firstColumn, lastRow, lastColumn;
-    if (range.indexOf(':') != -1) {
-      rangeCoordinates = range.split("[:;]");
-      firstRow = Integer.parseInt(rangeCoordinates[0]);
-      firstColumn = Integer.parseInt(rangeCoordinates[1]);
-      lastRow = Integer.parseInt(rangeCoordinates[2]);
-      lastColumn = Integer.parseInt(rangeCoordinates[3]);
-
-      
-    } else {
-      rangeCoordinates = range.split(";");
-      firstRow = lastRow = Integer.parseInt(rangeCoordinates[0]);
-      firstColumn = lastColumn = Integer.parseInt(rangeCoordinates[1]);
-    }
-    
-    if (firstRow <= _matrizCells.length && lastRow <= _matrizCells.length && firstColumn <= _matrizCells[0].length && lastColumn <= _matrizCells[0].length)
-        return new Range(firstRow, firstColumn, lastRow, lastColumn, this);
-    else
-      throw new InvalidCellRangeException(range);
-  }
-
-  public boolean getChanged()
-  {
-	return _changed;
-  }
-
-  public void setChanged(boolean valor)
-  {
-	_changed = valor;
-  }
-
-  public int getRow()
-  {
-	return _rows;
-  }
-
-  public int getColumn()
-  {
-	return _columns;
-  }
-  /**
-   * Insert specified content in specified address.
-   *
-   * @param row the row of the cell to change 
-   * param column the column of the cell to change
-   * @param contentSpecification the specification in a string format of the content to put
-   *        in the specified cell.
-   */
+	/**
+	 * Insert specified content in specified address.
+	 *
+	 * @param row                  the row of the cell to change
+	 *                             param column the column of the cell to change
+	 * @param contentSpecification the specification in a string format of the
+	 *                             content to put
+	 *                             in the specified cell.
+	 */
 }

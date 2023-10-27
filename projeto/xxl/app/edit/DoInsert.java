@@ -29,7 +29,8 @@ class DoInsert extends Command<Spreadsheet> {
   @Override
   protected final void execute() throws CommandException {
    try{
-    Range gamaInserirRange = _receiver.buildRange("Gama_Inserir");
+	
+    Range gamaInserirRange = _receiver.buildRange(stringField("Gama_Inserir"));
     int row = gamaInserirRange.getBeginRow(), col = gamaInserirRange.getBeginColumn();
     while (row != gamaInserirRange.getEndRow() || col != gamaInserirRange.getEndColumn()){
 		{

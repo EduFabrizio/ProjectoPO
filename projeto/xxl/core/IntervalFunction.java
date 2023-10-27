@@ -5,23 +5,23 @@ import xxl.core.exception.DivideByZeroException;
 public abstract class IntervalFunction extends Function
 {
 
-	protected boolean _changed;
 	protected Range _range;
 
 	public IntervalFunction(Range range, String name)
 	{
 		super(name);
-		_changed = false;
 		_range = range;
+		int row = range.getBeginRow(), col = range.getBeginColumn();
 		for (Cell c : _range.getCells())
 		{
+			if (c == null)
+				c = new Cell(row, col, new NullContent());
 			c.addFunc(this);
+			if (row == range.getEndRow())
+				col++;
+			if (col == range.getEndColumn())
+				row++;
 		}
-	}
-
-	public void update(Literal value)
-	{
-		_changed = true;
 	}
 
 	public String toString() 

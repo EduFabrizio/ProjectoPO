@@ -3,6 +3,7 @@ package xxl.core;
 import xxl.core.exception.DivideByZeroException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Cell implements Serializable{
 	private static final long serialVersionUID = 80085797949L;
@@ -15,6 +16,7 @@ public class Cell implements Serializable{
         _row = row;
         _column = column;
         _content = content;
+		_funcDepend = new ArrayList<Subscriber>();
     }
     public String toString(){
 		try{
