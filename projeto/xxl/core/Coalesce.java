@@ -3,7 +3,6 @@ package xxl.core;
 import java.util.List;
 
 import xxl.core.exception.AsStringException;
-import xxl.core.exception.DivideByZeroException;
 
 public class Coalesce extends IntervalFunction
 {
@@ -12,7 +11,7 @@ public class Coalesce extends IntervalFunction
 		super(range, "COALESCE");
 	}
 
-	protected Literal compute() throws DivideByZeroException
+	protected Literal compute()
 	{
 		List<Cell> cells = _range.getCells();
 		String coalesce = "";

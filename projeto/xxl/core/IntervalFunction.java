@@ -1,7 +1,5 @@
 package xxl.core;
 
-import xxl.core.exception.DivideByZeroException;
-
 public abstract class IntervalFunction extends Function
 {
 
@@ -29,7 +27,7 @@ public abstract class IntervalFunction extends Function
 		return "=" + _name + "(" + this.toFuncArg() + ")";
 	}
 
-	public String showCont() throws DivideByZeroException
+	public String showCont()
 	{
 		return value().toString() + toString();
 	}

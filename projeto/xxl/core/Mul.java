@@ -1,7 +1,6 @@
 package xxl.core;
 
 import xxl.core.exception.AsIntException;
-import xxl.core.exception.DivideByZeroException;
 
 public class Mul extends BinaryFunction
 {
@@ -11,7 +10,7 @@ public class Mul extends BinaryFunction
 		super(arg1, arg2, "MUL");
 	}
 
-	protected Literal compute() throws DivideByZeroException
+	protected Literal compute()
 	{
 		int i;
 

@@ -1,6 +1,5 @@
 package xxl.core;
 
-import xxl.core.exception.DivideByZeroException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,21 +18,15 @@ public class Cell implements Serializable{
 		_funcDepend = new ArrayList<Subscriber>();
     }
     public String toString(){
-		try{
 			return "" + _row + ";" + _column + "|" + _content.showCont();
-		}
-		catch(DivideByZeroException ex)
-		{
-			return "" + _row + ";" + _column + "|";
-		}
         
     }
-    void setContent(Content c) throws DivideByZeroException
+    void setContent(Content c)
 	{
         _content = c;
 		notifyFuncs();
     }
-    Literal value() throws DivideByZeroException{
+    Literal value(){
         return _content.value();
     }
 
@@ -52,7 +45,7 @@ public class Cell implements Serializable{
 		return _content;
 	}
 
-	public void notifyFuncs() throws DivideByZeroException
+	public void notifyFuncs()
 	{
 		if (_funcDepend != null)
 		{

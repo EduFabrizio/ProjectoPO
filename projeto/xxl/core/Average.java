@@ -3,7 +3,6 @@ package xxl.core;
 import java.util.List;
 
 import xxl.core.exception.AsIntException;
-import xxl.core.exception.DivideByZeroException;
 
 public class Average extends IntervalFunction
 {
@@ -12,7 +11,7 @@ public class Average extends IntervalFunction
 		super(range, "AVERAGE");
 	}
 
-	protected Literal compute() throws DivideByZeroException
+	protected Literal compute()
 	{
 		List<Cell> cells = _range.getCells();
 		int acumulator = 0;

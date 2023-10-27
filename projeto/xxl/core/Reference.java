@@ -1,7 +1,5 @@
 package xxl.core;
 
-import xxl.core.exception.DivideByZeroException;
-
 public class Reference extends Content
 {
 	private int _row;
@@ -25,13 +23,13 @@ public class Reference extends Content
 		return Integer.toString(_row) + ";" + Integer.toString(_column);
 	}
 
-	Literal value() throws DivideByZeroException
+	Literal value()
 	{
 		Cell[][] cells = _sheet.getMatrizCells();
 		return cells[_row - 1][_column - 1].getContent().value();
 	}
 
-	public String showCont() throws DivideByZeroException
+	public String showCont()
 	{
 		try {
 			return value().toString() + toString();

@@ -1,7 +1,5 @@
 package xxl.core;
 
-import xxl.core.exception.DivideByZeroException;
-
 public abstract class BinaryFunction extends Function
 {
 	protected Content _arg1;
@@ -28,7 +26,7 @@ public abstract class BinaryFunction extends Function
 		return _arg1.toFuncArg() + "," + _arg2.toFuncArg();
 	}
 
-	public String showCont() throws DivideByZeroException
+	public String showCont()
 	{
 		return value().toString() + toString();
 	}

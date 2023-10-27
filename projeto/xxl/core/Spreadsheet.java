@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xxl.app.exception.InvalidCellRangeException;
-import xxl.core.exception.DivideByZeroException;
 import xxl.core.exception.IncorrectBinaryFunctionException;
 import xxl.core.exception.IncorrectIntervalFunctionException;
 import xxl.core.exception.UnrecognizedEntryException;
@@ -47,13 +46,13 @@ public class Spreadsheet implements Serializable {
 		_cutBuffer = new CutBuffer((ArrayList<Cell>) newRange.copyRange());
 	}
 
-	public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+	public void cut(String range) throws UnrecognizedEntryException, InvalidCellRangeException{
 		copy(range);
 		clear(range);
 	}
 
 	public void paste(String range)
-			throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+			throws UnrecognizedEntryException, InvalidCellRangeException{
 		Range newRange = buildRange(range);
 		ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
 		int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
@@ -70,7 +69,7 @@ public class Spreadsheet implements Serializable {
 		}
 	}
 
-	public List<Cell> getEqualValue(String value) throws DivideByZeroException{
+	public List<Cell> getEqualValue(String value){
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		String compare;
 		for (int r = 0; r < _rows; r++) {
@@ -85,7 +84,7 @@ public class Spreadsheet implements Serializable {
 		return list;
 	}
 
-	public List<Cell> getEqualFuntion(String func)  throws DivideByZeroException{
+	public List<Cell> getEqualFuntion(String func){
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		String compare;
 		for (int r = 0; r < _rows; r++) {
@@ -104,7 +103,7 @@ public class Spreadsheet implements Serializable {
 	}
 
 	public void clear(String range)
-			throws UnrecognizedEntryException, InvalidCellRangeException, DivideByZeroException {
+			throws UnrecognizedEntryException, InvalidCellRangeException{
 		Range newRange = buildRange(range);
 		List<Cell> cells = newRange.getCells();
 		int row = newRange.getBeginRow(), col = newRange.getBeginColumn();
@@ -121,7 +120,7 @@ public class Spreadsheet implements Serializable {
 		}
 	}
 
-	public void clear(Range range) throws DivideByZeroException {
+	public void clear(Range range){
 		List<Cell> cells = range.getCells();
 		int row = range.getBeginRow(), col = range.getBeginColumn();
 		for (Cell c : cells) {
@@ -141,17 +140,22 @@ public class Spreadsheet implements Serializable {
 
 	}
 
-	public void insert(int linha, int coluna, Content conteudo) {
+	public void insert(int linha, int coluna, Content conteudo){
 		if (linha <= _rows && coluna <= _columns)
 		{
-			_matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
+			if (_matrizCells[linha - 1][coluna - 1] == null)
+				_matrizCells[linha - 1][coluna - 1] = new Cell(linha, coluna, conteudo);
+			else
+			{
+				_matrizCells[linha - 1][coluna - 1].setContent(conteudo);
+			}
 			_changed = true;
 		}
 		
 	}
 
 	public void insertContent(int linha, int coluna, String conteudo) throws UnrecognizedEntryException,
-			IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException {
+			IncorrectBinaryFunctionException, IncorrectIntervalFunctionException, InvalidCellRangeException{
 		Parser parser = new Parser(this);
 		Content newConteudo = parser.parseContent(conteudo);
 		insert(linha, coluna, newConteudo);

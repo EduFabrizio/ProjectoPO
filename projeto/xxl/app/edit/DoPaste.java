@@ -5,7 +5,6 @@ import pt.tecnico.uilib.menus.CommandException;
 import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
-import xxl.core.exception.DivideByZeroException;
 
 /**
  * Paste command.
@@ -22,7 +21,7 @@ class DoPaste extends Command<Spreadsheet> {
     try{
       _receiver.paste(stringField("Gama_paste"));
     }
-    catch(UnrecognizedEntryException|DivideByZeroException e){
+    catch(UnrecognizedEntryException e){
       throw new OurCommandException(""+e);
     }
   }

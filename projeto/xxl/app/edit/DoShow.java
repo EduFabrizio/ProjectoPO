@@ -4,7 +4,6 @@ import pt.tecnico.uilib.Display;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.core.Spreadsheet;
-import xxl.core.exception.DivideByZeroException;
 import xxl.core.exception.UnrecognizedEntryException;
 import xxl.app.exception.InvalidCellRangeException;
 import xxl.core.Cell;

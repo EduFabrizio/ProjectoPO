@@ -2,7 +2,6 @@ package xxl.core;
 
 import xxl.core.exception.AsIntException;
 import xxl.core.exception.AsStringException;
-import xxl.core.exception.DivideByZeroException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,24 +23,24 @@ public abstract class Function extends Content implements Subscriber
 	public void addFuncCell(Function func)
 	{}
 
-	public void update() throws DivideByZeroException
+	public void update()
 	{
 		_value = compute();
 	}
 
-	protected abstract Literal compute() throws DivideByZeroException;
+	protected abstract Literal compute();
 
-	public String asString() throws AsStringException, DivideByZeroException
+	public String asString() throws AsStringException
 	{
 		return this.value().asString();
 	}
 
-	public int asInt() throws AsIntException, DivideByZeroException
+	public int asInt() throws AsIntException
 	{
 		return this.value().asInt();
 	}
 
-	public Literal value() throws DivideByZeroException
+	public Literal value()
 	{
 		if (_value == null)
 			_value = compute();

@@ -8,8 +8,6 @@ import xxl.app.exception.OurCommandException;
 import xxl.core.Spreadsheet;
 import xxl.core.exception.UnrecognizedEntryException;
 
-import xxl.core.exception.DivideByZeroException;
-
 // FIXME import classes
 
 /**
@@ -29,7 +27,7 @@ class DoDelete extends Command<Spreadsheet> {
       _receiver.clear(stringField("Gama_del"));
     
   }
-  catch(UnrecognizedEntryException| DivideByZeroException e){
+  catch(UnrecognizedEntryException e){
     throw new OurCommandException("" + e);
   }
   

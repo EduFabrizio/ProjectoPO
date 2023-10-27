@@ -1,7 +1,6 @@
 package xxl.core;
 
 import xxl.core.exception.AsIntException;
-import xxl.core.exception.DivideByZeroException;
 
 public class Product extends IntervalFunction
 {
@@ -10,7 +9,7 @@ public class Product extends IntervalFunction
 		super(range, "PRODUCT");
 	}
 
-	protected Literal compute() throws DivideByZeroException
+	protected Literal compute()
 	{
 		int acumulator = 1;
 

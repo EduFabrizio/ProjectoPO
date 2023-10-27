@@ -1,7 +1,5 @@
 package xxl.core;
 
-import xxl.core.exception.DivideByZeroException;
-
 public class NullContent extends Content{
 
     @Override
@@ -10,12 +8,12 @@ public class NullContent extends Content{
     }
 
     @Override
-    Literal value() throws DivideByZeroException {
+    Literal value(){
         return null;
     }
 
     @Override
-    public String showCont() throws DivideByZeroException {
+    public String showCont(){
         return "";
     }
 

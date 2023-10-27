@@ -31,16 +31,22 @@ class DoInsert extends Command<Spreadsheet> {
    try{
 	
     Range gamaInserirRange = _receiver.buildRange(stringField("Gama_Inserir"));
-    int row = gamaInserirRange.getBeginRow(), col = gamaInserirRange.getBeginColumn();
-    while (row != gamaInserirRange.getEndRow() || col != gamaInserirRange.getEndColumn()){
-		{
-			_receiver.insertContent(row, col, stringField("conteudo"));
-		}
-		if (row == gamaInserirRange.getEndRow())
-			col++;
-		if (col == gamaInserirRange.getEndColumn())
-			row++;
-    }
+    // int row = gamaInserirRange.getBeginRow(), col = gamaInserirRange.getBeginColumn();
+	
+    // while (row != gamaInserirRange.getEndRow() || col != gamaInserirRange.getEndColumn()){
+	// 	{
+	// 		_receiver.insertContent(row, col, stringField("conteudo"));
+	// 	}
+	// 	if (row == gamaInserirRange.getEndRow())
+	// 		col++;
+	// 	if (col == gamaInserirRange.getEndColumn())
+	// 		row++;
+    // }
+	List<Cell> cells= gamaInserirRange.copyRange();
+
+	for (Cell cell : cells) {
+		_receiver.insertContent(cell.getRow(), cell.getColumn(), stringField("conteudo"));
+	}
   }
   catch(UnrecognizedEntryException|InvalidCellRangeException|IncorrectBinaryFunctionException|IncorrectIntervalFunctionException e){
     throw new OurCommandException(""+e);

@@ -2,7 +2,6 @@ package xxl.app.edit;
 
 import pt.tecnico.uilib.menus.Command;
 import xxl.core.Spreadsheet;
-import xxl.core.exception.DivideByZeroException;
 
 import java.util.ArrayList;
 import xxl.core.Cell;
