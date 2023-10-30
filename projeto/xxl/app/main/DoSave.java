@@ -33,12 +33,12 @@ class DoSave extends Command<Calculator> {
 		{
 			_receiver.saveAs(filename);
 		}
-		catch (Exception ex)
+		catch (MissingFileAssociationException | IOException ex)
 		{
 			throw new FileOpenFailedException(ex);
 		}
 	}
-	catch (Exception ex2)
+	catch (IOException ex2)
 	{
 		throw new FileOpenFailedException(ex2);
 	}

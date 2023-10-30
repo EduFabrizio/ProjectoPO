@@ -1,19 +1,26 @@
 package xxl.core;
 
-public class User{
-        private String _name;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
-        public User(String name){
-            _name = name;
-        }
+public class User implements java.io.Serializable{
+    private final String _name;
+	private List<Spreadsheet> _spreadsheets = new ArrayList<>();
 
+  public User(String name) {
+    _name = name;
+  }
 
-        void add(Spreadsheet sheet){
+  void add(Spreadsheet s) {
+    _spreadsheets.add(s);
+  }
 
-        }
-
-		public String getName()
-		{
-			return _name;
-		}
+  public List<Spreadsheet> getSpreadSheets() {
+    return Collections.unmodifiableList(_spreadsheets);
+  }
+  
+  public final String getName() {
+    return _name;
+  }
 }

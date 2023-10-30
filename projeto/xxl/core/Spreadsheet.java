@@ -84,20 +84,6 @@ public class Spreadsheet implements Serializable {
 			else if (orientacao == "column")
 				col++;
 		}
-		// ArrayList<Cell> cells = _cutBuffer.getCutBuffer();
-		// int r = newRange.getBeginRow(), col = newRange.getBeginColumn();
-
-		// for (Cell c : cells) {
-		// 	if (_matrizCells[r - 1][col - 1] == null)
-		// 		_matrizCells[r - 1][col - 1] = new Cell(r, col, c.getContent());
-		// 	else
-		// 		_matrizCells[r - 1][col - 1].setContent(c.getContent());
-		// 	if (r == newRange.getEndRow())
-		// 		col++;
-		// 	if (col == newRange.getEndColumn())
-		// 		r++;
-		//}
-
 	}
 
 	public List<Cell> getEqualValue(String value){

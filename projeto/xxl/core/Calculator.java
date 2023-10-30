@@ -54,7 +54,9 @@ public class Calculator {
    */
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
 		if (_filename == null)
+		{
 			throw new MissingFileAssociationException();
+		}	
 		if (_spreadsheet.getChanged() == true)
 		{
 			_spreadsheet.setChanged(false);
