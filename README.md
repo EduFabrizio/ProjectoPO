@@ -1,2 +1,2 @@
-# ProjectoPO
-Projecto de PO
+# Projecto de ProgramaçAo por Objectos.
+
